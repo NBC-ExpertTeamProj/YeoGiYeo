@@ -48,17 +48,23 @@ const CuisineTypeStep = ({ nextStep, prevStep, setCuisineType, cuisineType }) =>
   return (
     <StContainer>
       <StH2>음식 종류를 선택하세요 </StH2>
-      {['한식', '중식', '일식', '양식', '아시안'].map((cuisine) => (
-        <Stdiv key={cuisine}>
+      {[
+        { ko: '한식', en: 'korean' },
+        { ko: '중식', en: 'chinese' },
+        { ko: '일식', en: 'japanese' },
+        { ko: '양식', en: 'western' },
+        { ko: '아시안', en: 'asia' }
+      ].map((cuisine) => (
+        <Stdiv key={cuisine.ko}>
           <input
             type="radio"
-            id={cuisine}
+            id={cuisine.ko}
             name="cuisineType"
-            value={cuisine}
-            checked={cuisine === cuisineType}
+            value={cuisine.en}
+            checked={cuisine.en === cuisineType}
             onChange={handleChange}
           />
-          <label htmlFor={cuisine}>{cuisine}</label>
+          <label htmlFor={cuisine.ko}>{cuisine.ko}</label>
         </Stdiv>
       ))}
       <StButtonDiv>
