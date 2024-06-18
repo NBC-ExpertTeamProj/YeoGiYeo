@@ -1,13 +1,13 @@
 export const theme = {
   colors: {
     background: '#fafafa',
-    primary: '#d6eaf8',
-    positive: '#3498db',
-    positiveFocus: '#006CB4',
-    negative: '#bdbdbd',
-    negativeFocus: '#A0A0A0',
-    text: '#545454',
-    textFocus: '#FFFFFF',
+    skyBlue: '#d6eaf8',
+    darkBlue: '#3498db',
+    darkBlueFocus: '#006CB4',
+    gray: '#bdbdbd',
+    grayFocus: '#A0A0A0',
+    black: '#545454',
+    white: '#FFFFFF',
     border: '#545454',
     error: '#F54444',
     shade: '#d9d9d9'
