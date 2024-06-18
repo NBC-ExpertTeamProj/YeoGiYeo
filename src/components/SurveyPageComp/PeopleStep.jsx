@@ -34,7 +34,7 @@ const StButtonDiv = styled.div`
   }
 `;
 
-const PeopleStep = ({ nextStep, prevStep, setPeople, people }) => {
+const PeopleStep = ({ prevStep, setPeople, people, cuisineType, mealType }) => {
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -42,10 +42,15 @@ const PeopleStep = ({ nextStep, prevStep, setPeople, people }) => {
   };
 
   const handlePage = () => {
-    if (people) {
-      navigate('/Result');
+    if (people && cuisineType && mealType) {
+      const surveyData = {
+        company: people,
+        cuisine_type: cuisineType,
+        meal_type: mealType
+      };
+      navigate('/Result', { state: { surveyData } });
     } else {
-      alert('식사인원을 선택해주세요');
+      alert('모든 항목을 선택해주세요.');
     }
   };
 
