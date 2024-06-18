@@ -2,9 +2,12 @@ export const theme = {
   colors: {
     background: '#fafafa',
     primary: '#d6eaf8',
-    secondary: '#3498db',
-    tertiary: '#006CB4',
+    positive: '#3498db',
+    positiveFocus: '#006CB4',
+    negative: '#bdbdbd',
+    negativeFocus: '#A0A0A0',
     text: '#545454',
+    textFocus: '#FFFFFF',
     border: '#545454',
     error: '#F54444',
     shade: '#d9d9d9'
