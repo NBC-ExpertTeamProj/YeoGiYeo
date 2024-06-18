@@ -34,7 +34,7 @@ const StButtonDiv = styled.div`
   }
 `;
 
-const PeopleStep = ({ nextStep, prevStep, setPeople, people }) => {
+const PeopleStep = ({ prevStep, setPeople, people, cuisineType, mealType }) => {
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -42,27 +42,37 @@ const PeopleStep = ({ nextStep, prevStep, setPeople, people }) => {
   };
 
   const handlePage = () => {
-    if (people) {
-      navigate('/Result');
+    if (people && cuisineType && mealType) {
+      const surveyData = {
+        company: people,
+        cuisine_type: cuisineType,
+        meal_time: mealType
+      };
+      navigate('/Result', { state: { surveyData } });
     } else {
-      alert('식사인원을 선택해주세요');
+      alert('모든 항목을 선택해주세요.');
     }
   };
 
   return (
     <StContainer>
       <StH2>몇 명이서 식사하시나요?</StH2>
-      {['혼밥', '친구', '연인', '가족모임'].map((group) => (
-        <Stdiv key={group}>
+      {[
+        { ko: '혼밥', en: 'alone' },
+        { ko: '친구', en: 'friends' },
+        { ko: '연인', en: 'partner' },
+        { ko: '가족모임', en: 'family' }
+      ].map((group) => (
+        <Stdiv key={group.ko}>
           <input
             type="radio"
-            id={group}
+            id={group.ko}
             name="people"
-            value={group}
-            checked={people === group}
+            value={group.en}
+            checked={people === group.en}
             onChange={handleChange}
           />
-          <label htmlFor={group}>{group}</label>
+          <label htmlFor={group.ko}>{group.ko}</label>
         </Stdiv>
       ))}
       <StButtonDiv>
