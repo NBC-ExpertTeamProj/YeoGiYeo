@@ -1,8 +1,7 @@
 import LinkShare from '../../components/ResultPageComp/LinkShare';
+import RandomSuggestion from '../../components/ResultPageComp/RandomSuggestion';
 
 const ResultPage = () => {
-  const url = 'https://YeoGiYeo.com';
-  const text = '배포할 내용';
   return (
     <>
       <div>
@@ -13,12 +12,11 @@ const ResultPage = () => {
         <p>음식 이름</p>
       </div>
       <div>
-        <button>음식 이름과 가장 어울리는 디저트는?</button>
-        <button>음식 이름과 가장 어울리는 주종은?</button>
+        <RandomSuggestion />
       </div>
       <div>
         <h1>Share this page</h1>
-        <LinkShare platform={Kakao} url={url} text={text} />
+        <LinkShare />
       </div>
       <div>youtubeapi</div>
       <div>mapapi</div>
