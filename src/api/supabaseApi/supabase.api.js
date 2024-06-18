@@ -1,25 +1,13 @@
 import supabase from '../../supabase/supabase';
-
-export const FOOD_TABLE_NAME = 'food';
-export const DESSERT_TABLE_NAME = 'dessert';
+import DessertApi from './dessert.api';
+import FoodApi from './food.api';
 
 class API {
   #supabase;
   constructor(supabaseClient) {
     this.#supabase = supabaseClient;
-  }
-  async getAll(tableName) {
-    const { data, error } = await this.#supabase.from(tableName).select();
-    if (error) {
-      throw new Error(error.message);
-    }
-    return data;
-  }
-  async getFoods() {
-    return this.getAll(FOOD_TABLE_NAME);
-  }
-  async getDesserts() {
-    return this.getAll(DESSERT_TABLE_NAME);
+    this.food = new FoodApi(this.#supabase);
+    this.dessert = new DessertApi(this.#supabase);
   }
 }
 
