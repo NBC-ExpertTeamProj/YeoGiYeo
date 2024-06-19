@@ -1,6 +1,7 @@
-import React from 'react';
+import { useQuery } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 import styled, { keyframes } from 'styled-components';
+import { supabaseApi } from '../../api/supabaseApi/supabase.api';
 import Logo from '../../assets/YeoGiYeo.png';
 
 const fadeIn = keyframes`
@@ -76,6 +77,15 @@ const LogoImage = styled.div`
 `;
 
 const MainPage = () => {
+  const {
+    data: count,
+    isLoading,
+    isError
+  } = useQuery({
+    queryKey: ['count'],
+    queryFn: () => supabaseApi.counter.getCount()
+  });
+
   const navigate = useNavigate();
 
   const handleStartClick = () => {
@@ -87,6 +97,7 @@ const MainPage = () => {
       <LogoImage />
       <TitleName>랜덤 메뉴 추천</TitleName>
       <Subtitle>매일 무엇을 먹을지 고민되시나요? 지금 시작해보세요!</Subtitle>
+      <Subtitle>{count}</Subtitle>
       <StartButton onClick={handleStartClick}>시작</StartButton>
     </Container>
   );
