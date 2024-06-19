@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 
 const KakaoMap = ({ foodName }) => {
   useEffect(() => {
-    // console.log('Kakao API Key:', import.meta.env.VITE_KAKAO_API_KEY); // 환경 변수 확인용 콘솔 로그
+    console.log('Kakao API Key:', import.meta.env.VITE_KAKAO_API_KEY); // 환경 변수 확인용 콘솔 로그
     const createMap = () => {
       const { kakao } = window;
       kakao.maps.load(() => {
@@ -22,6 +22,28 @@ const KakaoMap = ({ foodName }) => {
                 zIndex: 1,
                 removable: true, // 닫기 버튼 추가
                 maxWidth: 250 // 최대 너비 설정
+              });
+
+              // 사용자 위치 마커 추가
+              const userMarker = new kakao.maps.Marker({
+                map,
+                position: new kakao.maps.LatLng(lat, lng),
+                title: '현재 위치'
+              });
+
+              const userMarkerContent = `
+                <div style="padding:5px;font-size:14px;">
+                  <strong>현재 위치</strong>
+                </div>
+              `;
+
+              const userInfowindow = new kakao.maps.InfoWindow({
+                content: userMarkerContent,
+                removable: true
+              });
+
+              kakao.maps.event.addListener(userMarker, 'click', () => {
+                userInfowindow.open(map, userMarker);
               });
 
               const callback = (data, status) => {
@@ -53,7 +75,7 @@ const KakaoMap = ({ foodName }) => {
 
               const options = {
                 location: new kakao.maps.LatLng(lat, lng),
-                radius: 1000 // 반경 1킬로미터
+                radius: 500 // 반경 500미터
               };
 
               ps.keywordSearch(foodName, callback, options);
@@ -61,7 +83,16 @@ const KakaoMap = ({ foodName }) => {
               // 지도 클릭 이벤트 추가
               kakao.maps.event.addListener(map, 'click', () => {
                 infowindow.close();
+                userInfowindow.close();
               });
+
+              // 줌 컨트롤 추가
+              const zoomControl = new kakao.maps.ZoomControl();
+              map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
+
+              // 지도 타입 변경 컨트롤 추가
+              const mapTypeControl = new kakao.maps.MapTypeControl();
+              map.addControl(mapTypeControl, kakao.maps.ControlPosition.TOPRIGHT);
             },
             (error) => {
               console.error('Geolocation Error:', error);
