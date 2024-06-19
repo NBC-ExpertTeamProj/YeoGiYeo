@@ -66,6 +66,16 @@ const ResultPage = () => {
     setSelectedVideo(video);
   };
 
+  const handleRetry = () => {
+    setFood(null);
+    setError(null);
+    setVideos([]);
+    setQuery('');
+    setSelectedVideo(null);
+
+    window.location.reload();
+  };
+
   return (
     <>
       <div>
@@ -76,6 +86,7 @@ const ResultPage = () => {
         {error && <p>Error: {error}</p>}
         {food ? <p>{food.name}</p> : <p>추천할 메뉴가 없습니다.</p>}
         {food && <img src={food.image_url} alt={food.name} />}
+        <button onClick={handleRetry}>다시하기</button>
       </div>
       <div>
         <RandomSuggestion />
