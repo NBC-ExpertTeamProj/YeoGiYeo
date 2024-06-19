@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import Swal from 'sweetalert2';
 
 const StContainer = styled.div`
   position: relative;
@@ -18,12 +19,16 @@ const Stdiv = styled.div`
   border: 1px solid black;
   padding: 6px;
   margin: 9px;
+  input,
+  label {
+    cursor: pointer;
+  }
 `;
 
 const StButtonDiv = styled.div`
   position: absolute;
-  bottom: 10px;
-  right: 10px;
+  bottom: 40px;
+  right: 40px;
   display: flex;
   gap: 5px;
 
@@ -35,13 +40,14 @@ const StButtonDiv = styled.div`
 const CuisineTypeStep = ({ nextStep, prevStep, setCuisineType, cuisineType }) => {
   const handleChange = (e) => {
     setCuisineType(e.target.value);
+    nextStep();
   };
 
   const handleNextStep = () => {
     if (cuisineType) {
       nextStep();
     } else {
-      alert('음식 종류를 선택해주세요.');
+      Swal.fire({ text: '음식 종류를 선택해주세요.', confirmButtonColor: '#3085d6' });
     }
   };
 

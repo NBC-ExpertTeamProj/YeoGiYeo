@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import Swal from 'sweetalert2';
 
 const StContainer = styled.div`
   position: relative;
@@ -18,25 +19,30 @@ const Stdiv = styled.div`
   border: 1px solid black;
   padding: 6px;
   margin: 9px;
+  input,
+  label {
+    cursor: pointer;
+  }
 `;
 
 const StButton = styled.button`
   position: absolute;
-  bottom: 10px;
-  right: 10px;
+  bottom: 40px;
+  right: 40px;
   cursor: pointer;
 `;
 
 const MealTypeStep = ({ nextStep, setMealType, mealType }) => {
   const handleChange = (e) => {
     setMealType(e.target.value);
+    nextStep();
   };
 
   const handleNextStep = () => {
     if (mealType) {
       nextStep();
     } else {
-      alert('식사 종류를 선택해주세요.');
+      Swal.fire({ text: '식사 종류를 선택해주세요.', confirmButtonColor: '#3085d6' });
     }
   };
 
