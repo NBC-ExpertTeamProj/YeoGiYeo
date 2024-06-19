@@ -1,4 +1,8 @@
 import { useEffect } from 'react';
+import { ShareButton, ShareImage } from '../../styles/ResultPageStyles/ResultPageStyle';
+import facebookIcon from '../../assets/icon-facebook.png';
+import twitterIcon from '../../assets/icon-twitter.png';
+import kakaoIcon from '../../assets/icon-kakao.png';
 
 const LinkShare = () => {
   const url = 'https://YeoGiYeo.com';
@@ -39,9 +43,15 @@ const LinkShare = () => {
 
   return (
     <div>
-      <button onClick={() => handleClick('facebook')}>Share on Facebook</button>
-      <button onClick={() => handleClick('twitter')}>Share on Twitter</button>
-      <button onClick={() => handleClick('kakao')}>Share on KakaoTalk</button>
+      <ShareButton onClick={() => handleClick('facebook')}>
+        <ShareImage src={facebookIcon} alt="Share on Facebook" />
+      </ShareButton>
+      <ShareButton onClick={() => handleClick('twitter')}>
+        <ShareImage src={twitterIcon} alt="Share on Twitter" />
+      </ShareButton>
+      <ShareButton onClick={() => handleClick('kakao')}>
+        <ShareImage src={kakaoIcon} alt="Share on KakaoTalk" />
+      </ShareButton>
     </div>
   );
 };

@@ -47,8 +47,26 @@ export const VideoTitle = styled.h2`
 `;
 
 export const ResultContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   text-align: center;
   margin-top: ${({ theme }) => theme.spacing.medium};
+  cursor: pointer;
+  > h1 {
+    font-size: ${({ theme }) => theme.fontsize.large};
+    color: ${({ theme }) => theme.colors.black};
+    font-family: ${({ theme }) => theme.fonts.extraBold};
+    padding: ${({ theme }) => theme.spacing.small};
+  }
+
+  > p {
+    font-size: ${({ theme }) => theme.fontsize.medium};
+    color: ${({ theme }) => theme.colors.black};
+    font-family: ${({ theme }) => theme.fonts.bold};
+    padding: ${({ theme }) => theme.spacing.small};
+  }
 `;
 
 export const ErrorMessage = styled.p`
@@ -57,10 +75,15 @@ export const ErrorMessage = styled.p`
 `;
 
 export const FoodImage = styled.img`
-  margin-top: ${({ theme }) => theme.spacing.small};
-  width: 200px;
-  height: 200px;
+  display: block;
+  margin: 0 auto;
+  width: 600px;
+  height: 600px;
   object-fit: cover;
+  border: none;
+  border-radius: ${({ theme }) => theme.borderRadius};
+  margin-top: ${({ theme }) => theme.spacing.small};
+  margin-bottom: ${({ theme }) => theme.spacing.medium};
 `;
 
 export const RetryButton = styled.button`
@@ -83,8 +106,47 @@ export const RandomSuggestionContainer = styled.div`
 export const ShareContainer = styled.div`
   margin-top: ${({ theme }) => theme.spacing.medium};
   text-align: center;
+
+  > p {
+    font-size: ${({ theme }) => theme.fontsize.medium};
+    color: ${({ theme }) => theme.colors.black};
+    font-family: ${({ theme }) => theme.fonts.bold};
+    padding: ${({ theme }) => theme.spacing.small};
+  }
 `;
 
 export const ShareTitle = styled.h1`
   margin-bottom: ${({ theme }) => theme.spacing.small};
+`;
+
+export const ResultP = styled.p`
+  font-size: ${({ theme }) => theme.fontsize.medium};
+  color: ${({ theme }) => theme.colors.black};
+  font-family: ${({ theme }) => theme.fonts.extraBold};
+`;
+
+export const ShareButton = styled.button`
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  margin-right: 10px;
+  margin: ${({ theme }) => theme.spacing.small};
+`;
+
+export const ShareImage = styled.img`
+  width: 50px;
+  height: 50px;
+`;
+
+export const MapContainer = styled.div`
+  max-width: 1000px;
+  margin: ${({ theme }) => theme.spacing.medium} auto; /* Center horizontally */
+  margin-bottom: ${({ theme }) => theme.spacing.extraLarge};
+
+  > p {
+    font-size: ${({ theme }) => theme.fontsize.medium};
+    color: ${({ theme }) => theme.colors.black};
+    font-family: ${({ theme }) => theme.fonts.bold};
+    padding: ${({ theme }) => theme.spacing.small};
+  }
 `;

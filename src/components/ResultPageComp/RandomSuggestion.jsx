@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import supabase from '../../supabase/supabase';
+import { PositiveButton } from '../../styles/CommonStyles/ButtonStyle';
+import { FoodImage, ResultContainer } from '../../styles/ResultPageStyles/ResultPageStyle';
 
 const RandomSuggestion = () => {
   const [drinkPairing, setDrinkPairing] = useState(undefined);
@@ -48,25 +50,25 @@ const RandomSuggestion = () => {
   return (
     <>
       <div>
-        <button onClick={fetchRandomDrinkPairing} disabled={drinkPairing !== undefined}>
+        <PositiveButton onClick={fetchRandomDrinkPairing} disabled={drinkPairing !== undefined}>
           음식과 가장 어울리는 주종은?
-        </button>
+        </PositiveButton>
         {drinkPairing && (
-          <div>
+          <ResultContainer>
             <p>{drinkPairing.name}</p>
-            <img src={drinkPairing.image_url} alt={drinkPairing.name} />
-          </div>
+            <FoodImage src={drinkPairing.image_url} alt={drinkPairing.name} />
+          </ResultContainer>
         )}
       </div>
       <div>
-        <button onClick={fetchRandomDessertPairing} disabled={dessertPairing !== undefined}>
+        <PositiveButton onClick={fetchRandomDessertPairing} disabled={dessertPairing !== undefined}>
           음식과 가장 어울리는 디저트는?
-        </button>
+        </PositiveButton>
         {dessertPairing && (
-          <div>
+          <ResultContainer>
             <p>{dessertPairing.name}</p>
-            <img src={dessertPairing.image_url} alt={dessertPairing.name} />
-          </div>
+            <FoodImage src={dessertPairing.image_url} alt={dessertPairing.name} />
+          </ResultContainer>
         )}
       </div>
     </>

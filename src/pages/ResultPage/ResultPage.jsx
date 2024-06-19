@@ -5,10 +5,11 @@ import LinkShare from '../../components/ResultPageComp/LinkShare';
 import RandomSuggestion from '../../components/ResultPageComp/RandomSuggestion';
 import useFoodRecommendation from '../../hooks/useFoodRecommendation';
 import {
+  FoodImage,
+  MapContainer,
   RandomSuggestionContainer,
   ResultContainer,
   ShareContainer,
-  ShareTitle,
   VideoTitle,
   WatchVideo,
   YoutubeCard,
@@ -45,21 +46,21 @@ const ResultPage = () => {
   return (
     <>
       <ResultContainer>
-        <h2>메뉴 추천 결과</h2>
+        <h1>메뉴 추천 결과</h1>
       </ResultContainer>
       <ResultContainer>
-        <h3>설문 조사 결과 추천 메뉴는...</h3>
+        <p>설문 조사 결과 추천 메뉴는...</p>
         {error && <p>Error: {error}</p>}
-        {food ? <p>{food.name}</p> : <p>추천할 메뉴가 없습니다.</p>}
-        {food && <img src={food.image_url} alt={food.name} />}
+        {food ? <h1>{food.name}</h1> : <h1>추천할 메뉴가 없습니다.</h1>}
+        {food && <FoodImage src={food.image_url} alt={food.name} />}
         <PositiveButton onClick={handleRetry}>다시하기</PositiveButton>
       </ResultContainer>
       <RandomSuggestionContainer>
         <RandomSuggestion />
       </RandomSuggestionContainer>
       <ShareContainer>
-        <ShareTitle>Share this page</ShareTitle>
-        <LinkShare url="https://YeoGiYeo.com" text="배포할 내용" />
+        <p>Share this page</p>
+        <LinkShare url="https://YeoGiYeo.com" text="오늘의 식사 메뉴를 추천받아 보세요!" />
       </ShareContainer>
       <YoutubeCard>
         <YoutubeVideoList>
@@ -85,10 +86,10 @@ const ResultPage = () => {
           </WatchVideo>
         )}
       </YoutubeCard>
-      <ResultContainer>
-        <h2>지도</h2>
+      <MapContainer>
+        <p>추천 받은 메뉴를 파는 곳</p>
         {food && <KakaoMap foodName={food.name} />} {/* food.name을 KakaoMap에 전달 */}
-      </ResultContainer>
+      </MapContainer>
     </>
   );
 };
