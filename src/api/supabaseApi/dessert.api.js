@@ -3,7 +3,7 @@ export const DESSERT_TABLE_NAME = 'dessert';
 class DessertApi {
   #supabase;
   #dessert;
-  onstructor(supabaseClient) {
+  constructor(supabaseClient) {
     this.#supabase = supabaseClient;
     this.#dessert = this.#supabase.from(DESSERT_TABLE_NAME);
   }
@@ -15,11 +15,12 @@ class DessertApi {
     return data;
   }
   async getRandomDessert() {
-    const { data, error } = await this.#dessert.select();
-    if (error) {
-      throw new Error(error.message);
+    const { data: count, error: countError } = await this.#dessert.select('*', { count: 'exact' });
+    if (countError) {
+      throw new Error(countError.message);
     }
-    return data;
+    const randomnum = parseInt(Math.random() * count.length);
+    return count[randomnum];
   }
 }
 
