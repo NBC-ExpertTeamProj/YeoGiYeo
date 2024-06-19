@@ -6,6 +6,8 @@ import { supabaseApi } from '../../api/supabaseApi/supabase.api';
 import LinkShare from '../../components/ResultPageComp/LinkShare';
 import RandomSuggestion from '../../components/ResultPageComp/RandomSuggestion';
 import useStore from '../../zustand/store';
+import { useQuery } from '@tanstack/react-query';
+import supabase from '../../supabase/supabase';
 
 const ResultPage = () => {
   const [food, setFood] = useState(null);
@@ -15,6 +17,22 @@ const ResultPage = () => {
   const [selectedVideo, setSelectedVideo] = useState(null);
   const navigate = useNavigate();
   const foodSurveyObj = useStore((state) => state.foodSurveyObj);
+
+  // const fetchFoods = async () => {
+  //   const response = await supabaseApi.food.getFoods({
+  //     [MEAL_TIME]: foodSurveyObj.meal_time,
+  //     [CUISINE_TYPE]: foodSurveyObj.cuisine_type,
+  //     [COMPANY]: foodSurveyObj.company
+  //   });
+  //   return response.data;
+  // };
+
+  // const { data, isPending, isError } = useQuery({
+  //   queryKey: ['food'],
+  //   queryFn: fetchFoods
+  // });
+
+  // console.log(data);
 
   // const [loading, setLoading] = useState(false)
 
@@ -68,9 +86,6 @@ const ResultPage = () => {
 
   return (
     <>
-      <div>
-        <h2>메뉴 추천 결과</h2>
-      </div>
       <div>
         <h3>설문 조사 결과 추천 메뉴는...</h3>
         {error && <p>Error: {error}</p>}
