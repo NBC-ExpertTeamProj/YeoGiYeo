@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import LinkShare from '../../components/ResultPageComp/LinkShare';
 import RandomSuggestion from '../../components/ResultPageComp/RandomSuggestion';
 import { viewVideos } from '../../api/YoutubeApi/YoutubeApi';
-// import { YoutubeCard, YoutubeVideo } from '../../styles/CommonStyles/YoutubeStyle';
 
 const ResultPage = () => {
   const [videos, setVideos] = useState([]);
