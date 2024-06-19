@@ -53,10 +53,10 @@ const ResultPage = () => {
         {error && <p>Error: {error}</p>}
         {food ? <h1>{food.name}</h1> : <h1>추천할 메뉴가 없습니다.</h1>}
         {food && <FoodImage src={food.image_url} alt={food.name} />}
-        <PositiveButton onClick={handleRetry}>다시하기</PositiveButton>
       </ResultContainer>
       <RandomSuggestionContainer>
-        <RandomSuggestion />
+        {food && <RandomSuggestion food={food} />}
+        <PositiveButton onClick={handleRetry}>다시하기</PositiveButton>
       </RandomSuggestionContainer>
       <ShareContainer>
         <p>Share this page</p>
