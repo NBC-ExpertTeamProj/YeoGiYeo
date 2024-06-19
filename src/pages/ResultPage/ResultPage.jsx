@@ -1,4 +1,5 @@
-import { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import KakaoMap from '../../components/ResultPageComp/KakaoMap'; // 지도를 포함한 컴포넌트를 가져옵니다.
 import { useNavigate } from 'react-router-dom';
 import { viewVideos } from '../../api/YoutubeApi/YoutubeApi';
 import { COMPANY, CUISINE_TYPE, MEAL_TIME } from '../../api/supabaseApi/food.api';
@@ -50,6 +51,7 @@ const WatchVideo = styled.div`
 const VideoTitle = styled.h2`
   margin-bottom: 10px;
 `;
+
 const ResultPage = () => {
   const [videos, setVideos] = useState([]);
   const [selectedVideo, setSelectedVideo] = useState(null);
@@ -99,6 +101,7 @@ const ResultPage = () => {
       setError(error.message);
     }
   };
+
   const handleVideoSelect = (video) => {
     setSelectedVideo(video);
   };
@@ -154,7 +157,10 @@ const ResultPage = () => {
           </WatchVideo>
         )}
       </YoutubeCard>
-      <div>mapapi</div>
+      <div>
+        <h2>지도</h2>
+        {food && <KakaoMap foodName={food.name} />} {/* food.name을 KakaoMap에 전달 */}
+      </div>
     </>
   );
 };
