@@ -7,6 +7,7 @@ import LinkShare from '../../components/ResultPageComp/LinkShare';
 import RandomSuggestion from '../../components/ResultPageComp/RandomSuggestion';
 import useStore from '../../zustand/store';
 import styled from 'styled-components';
+import { useQuery } from '@tanstack/react-query';
 
 const YoutubeCard = styled.div`
   margin-top: 20px;
@@ -51,7 +52,6 @@ const VideoTitle = styled.h2`
 `;
 const ResultPage = () => {
   const [videos, setVideos] = useState([]);
-  const [query, setQuery] = useState('');
   const [selectedVideo, setSelectedVideo] = useState(null);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
@@ -107,7 +107,6 @@ const ResultPage = () => {
     setFood(null);
     setError(null);
     setVideos([]);
-    setQuery('');
     setSelectedVideo(null);
     window.location.reload();
   };
@@ -122,7 +121,6 @@ const ResultPage = () => {
         {error && <p>Error: {error}</p>}
         {food ? <p>{food.name}</p> : <p>추천할 메뉴가 없습니다.</p>}
         {food && <img src={food.image_url} alt={food.name} />}
-        <button onClick={handleRetry}>다시하기</button>
         <button onClick={handleRetry}>다시하기</button>
       </div>
       <div>
