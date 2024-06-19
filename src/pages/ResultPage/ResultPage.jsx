@@ -16,15 +16,19 @@ const ResultPage = () => {
   const navigate = useNavigate();
   const foodSurveyObj = useStore((state) => state.foodSurveyObj);
 
+  // const [loading, setLoading] = useState(false)
+
   useEffect(() => {
     console.log('foodSurveyObj :', foodSurveyObj);
     const fetchData = async () => {
+      // loading(true)
+      // setTimeout(()=>{})
       try {
         // Ensure required data is present, otherwise navigate to home
-        // if (!meal_time || !cuisine_type || !company) {
-        //   navigate('/');
-        //   return;
-        // }
+        if (!foodSurveyObj.meal_time || !foodSurveyObj.cuisine_type || !foodSurveyObj.company) {
+          navigate('/');
+          return;
+        }
 
         const foods = await supabaseApi.food.getFoods({
           [MEAL_TIME]: foodSurveyObj.meal_time,
@@ -71,6 +75,7 @@ const ResultPage = () => {
         <h3>설문 조사 결과 추천 메뉴는...</h3>
         {error && <p>Error: {error}</p>}
         {food ? <p>{food.name}</p> : <p>추천할 메뉴가 없습니다.</p>}
+        {food && <img src={food.image_url} alt={food.name} />}
       </div>
       <div>
         <RandomSuggestion />
