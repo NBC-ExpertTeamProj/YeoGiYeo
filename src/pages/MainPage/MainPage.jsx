@@ -1,6 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled, { keyframes } from 'styled-components';
+import Logo from '../../assets/YeoGiYeo.png';
 
 const fadeIn = keyframes`
   from {
@@ -29,6 +30,7 @@ const TitleName = styled.h1`
   margin-bottom: 10px;
   color: #333;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+  margin-top: 40px;
 `;
 
 const Subtitle = styled.h2`
@@ -64,8 +66,9 @@ const StartButton = styled.button`
 const LogoImage = styled.div`
   width: 350px;
   height: 350px;
-  background-image: url(../../assets/YeoGiYeo.png);
-  background-size: cover;
+  background-image: url(${Logo});
+  background-size: contain;
+  background-position: center;
   background-repeat: no-repeat;
   margin-bottom: 30px;
   border-radius: 15px;

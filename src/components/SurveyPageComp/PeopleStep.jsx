@@ -1,7 +1,8 @@
 import React from 'react';
-import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
 import Swal from 'sweetalert2';
+import useStore from '../../zustand/store';
 
 const StContainer = styled.div`
   position: relative;
@@ -40,6 +41,7 @@ const StButtonDiv = styled.div`
 `;
 
 const PeopleStep = ({ prevStep, setPeople, people, cuisineType, mealType }) => {
+  const updateFoodSurveyObj = useStore((state) => state.updateFoodSurveyObj);
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -53,6 +55,7 @@ const PeopleStep = ({ prevStep, setPeople, people, cuisineType, mealType }) => {
         cuisine_type: cuisineType,
         meal_time: mealType
       };
+      updateFoodSurveyObj(surveyData);
 
       navigate('/Result', { state: { surveyData } });
     } else {

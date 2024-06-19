@@ -1,26 +1,66 @@
-import React, { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { viewVideos } from '../../api/YoutubeApi/YoutubeApi';
+import { COMPANY, CUISINE_TYPE, MEAL_TIME } from '../../api/supabaseApi/food.api';
+import { supabaseApi } from '../../api/supabaseApi/supabase.api';
 import LinkShare from '../../components/ResultPageComp/LinkShare';
 import RandomSuggestion from '../../components/ResultPageComp/RandomSuggestion';
-import { viewVideos } from '../../api/YoutubeApi/YoutubeApi';
+import useStore from '../../zustand/store';
 
 const ResultPage = () => {
+  const [food, setFood] = useState(null);
+  const [error, setError] = useState(null);
   const [videos, setVideos] = useState([]);
   const [query, setQuery] = useState('');
   const [selectedVideo, setSelectedVideo] = useState(null);
+  const navigate = useNavigate();
+  const foodSurveyObj = useStore((state) => state.foodSurveyObj);
+
+  useEffect(() => {
+    console.log('foodSurveyObj :', foodSurveyObj);
+    const fetchData = async () => {
+      try {
+        // Ensure required data is present, otherwise navigate to home
+        // if (!meal_time || !cuisine_type || !company) {
+        //   navigate('/');
+        //   return;
+        // }
+
+        const foods = await supabaseApi.food.getFoods({
+          [MEAL_TIME]: foodSurveyObj.meal_time,
+          [CUISINE_TYPE]: foodSurveyObj.cuisine_type,
+          [COMPANY]: foodSurveyObj.company
+        });
+        console.log(foods);
+
+        if (foods.length > 0) {
+          const randomFood = foods[Math.floor(Math.random() * foods.length)];
+          setFood(randomFood);
+        } else {
+          setFood(null);
+        }
+      } catch (error) {
+        setError(error.message);
+      }
+    };
+
+    fetchData();
+  }, [foodSurveyObj.meal_time, foodSurveyObj.cuisine_type, foodSurveyObj.company]);
 
   const handleSearch = async (event) => {
     event.preventDefault();
-    const result = await viewVideos(query);
-    setVideos(result);
-    setSelectedVideo(null);
+    try {
+      const result = await viewVideos(query);
+      setVideos(result);
+      setSelectedVideo(null);
+    } catch (error) {
+      setError(error.message);
+    }
   };
 
   const handleVideoSelect = (video) => {
     setSelectedVideo(video);
   };
-
-  const url = 'https://YeoGiYeo.com';
-  const text = '배포할 내용';
 
   return (
     <>
@@ -29,14 +69,15 @@ const ResultPage = () => {
       </div>
       <div>
         <h3>설문 조사 결과 추천 메뉴는...</h3>
-        <p>음식 이름</p>
+        {error && <p>Error: {error}</p>}
+        {food ? <p>{food.name}</p> : <p>추천할 메뉴가 없습니다.</p>}
       </div>
       <div>
         <RandomSuggestion />
       </div>
       <div>
         <h1>Share this page</h1>
-        <LinkShare />
+        <LinkShare url="https://YeoGiYeo.com" text="배포할 내용" />
       </div>
       <div>
         <form onSubmit={handleSearch}>
@@ -72,7 +113,6 @@ const ResultPage = () => {
           </div>
         )}
       </div>
-      <div>mapapi</div>
     </>
   );
 };
