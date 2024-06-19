@@ -7,6 +7,7 @@ import LinkShare from '../../components/ResultPageComp/LinkShare';
 import RandomSuggestion from '../../components/ResultPageComp/RandomSuggestion';
 import useStore from '../../zustand/store';
 import styled from 'styled-components';
+import { useQuery } from '@tanstack/react-query';
 
 const YoutubeCard = styled.div`
   margin-top: 20px;
@@ -50,47 +51,40 @@ const VideoTitle = styled.h2`
   margin-bottom: 10px;
 `;
 const ResultPage = () => {
-  const [food, setFood] = useState(null);
-  const [error, setError] = useState(null);
   const [videos, setVideos] = useState([]);
-  const [query, setQuery] = useState('');
   const [selectedVideo, setSelectedVideo] = useState(null);
+  const [error, setError] = useState(null);
   const navigate = useNavigate();
   const foodSurveyObj = useStore((state) => state.foodSurveyObj);
 
-  // const [loading, setLoading] = useState(false)
+  const getFoodList = async () => {
+    if (!foodSurveyObj.meal_time || !foodSurveyObj.cuisine_type || !foodSurveyObj.company) {
+      navigate('/');
+      return [];
+    }
+
+    const result = await supabaseApi.food.getFoods({
+      [MEAL_TIME]: foodSurveyObj.meal_time,
+      [CUISINE_TYPE]: foodSurveyObj.cuisine_type,
+      [COMPANY]: foodSurveyObj.company
+    });
+    return result;
+  };
+
+  const { data: foods, isLoading } = useQuery({ queryKey: ['foods', foodSurveyObj], queryFn: getFoodList });
+
+  console.log(foods);
+
+  const [food, setFood] = useState(null);
+
   useEffect(() => {
-    console.log('foodSurveyObj :', foodSurveyObj);
-    const fetchData = async () => {
-      // loading(true)
-      // setTimeout(()=>{})
-      try {
-        // Ensure required data is present, otherwise navigate to home
-        if (!foodSurveyObj.meal_time || !foodSurveyObj.cuisine_type || !foodSurveyObj.company) {
-          navigate('/');
-          return;
-        }
-
-        const foods = await supabaseApi.food.getFoods({
-          [MEAL_TIME]: foodSurveyObj.meal_time,
-          [CUISINE_TYPE]: foodSurveyObj.cuisine_type,
-          [COMPANY]: foodSurveyObj.company
-        });
-        console.log(foods);
-
-        if (foods.length > 0) {
-          const randomFood = foods[Math.floor(Math.random() * foods.length)];
-          setFood(randomFood);
-        } else {
-          setFood(null);
-        }
-      } catch (error) {
-        setError(error.message);
-      }
-    };
-
-    fetchData();
-  }, [foodSurveyObj.meal_time, foodSurveyObj.cuisine_type, foodSurveyObj.company]);
+    if (foods && foods.length > 0) {
+      const randomFood = foods[Math.floor(Math.random() * foods.length)];
+      setFood(randomFood);
+    } else {
+      setFood(null);
+    }
+  }, [foods]);
 
   useEffect(() => {
     if (food) handleSearch(food.name);
@@ -101,7 +95,7 @@ const ResultPage = () => {
       const result = await viewVideos(keyword);
       setVideos(result);
       setSelectedVideo(null);
-    } catch (error) {
+    } catch (isError) {
       setError(error.message);
     }
   };
@@ -113,9 +107,7 @@ const ResultPage = () => {
     setFood(null);
     setError(null);
     setVideos([]);
-    setQuery('');
     setSelectedVideo(null);
-
     window.location.reload();
   };
 
