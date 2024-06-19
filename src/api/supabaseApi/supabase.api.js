@@ -1,4 +1,4 @@
-import supabase from './supabase';
+import supabase from '../../supabase/supabase';
 
 export const FOOD_TABLE_NAME = 'food';
 export const DESSERT_TABLE_NAME = 'dessert';
