@@ -15,25 +15,28 @@ const ResultPage = () => {
   const navigate = useNavigate();
   const foodSurveyObj = useStore((state) => state.foodSurveyObj);
 
-  // const [loading, setLoading] = useState(false)
-
-  const { foods, isLoading, isError, error } = useQuery(
-    ['foods', foodSurveyObj.meal_time, foodSurveyObj.cuisine_type, foodSurveyObj.company],
-    async () => {
-      // Ensure required data is present, otherwise navigate to home
-      if (!foodSurveyObj.meal_time || !foodSurveyObj.cuisine_type || !foodSurveyObj.company) {
-        navigate('/');
-        return [];
-      }
-
-      const result = await supabaseApi.food.getFoods({
-        [MEAL_TIME]: foodSurveyObj.meal_time,
-        [CUISINE_TYPE]: foodSurveyObj.cuisine_type,
-        [COMPANY]: foodSurveyObj.company
-      });
-      return result;
+  const getFoodList = async () => {
+    if (!foodSurveyObj.meal_time || !foodSurveyObj.cuisine_type || !foodSurveyObj.company) {
+      navigate('/');
+      return [];
     }
-  );
+
+    const result = await supabaseApi.food.getFoods({
+      [MEAL_TIME]: foodSurveyObj.meal_time,
+      [CUISINE_TYPE]: foodSurveyObj.cuisine_type,
+      [COMPANY]: foodSurveyObj.company
+    });
+    return result;
+  };
+
+  const {
+    data: foods,
+    isLoading,
+    isError,
+    error
+  } = useQuery({ queryKey: ['foods', foodSurveyObj], queryFn: getFoodList });
+
+  console.log(foods);
 
   const [food, setFood] = useState(null);
 
@@ -46,46 +49,13 @@ const ResultPage = () => {
     }
   }, [foods]);
 
-  // useEffect(() => {
-  //   console.log('foodSurveyObj :', foodSurveyObj);
-  //   const fetchData = async () => {
-  //     // loading(true)
-  //     // setTimeout(()=>{})
-  //     try {
-  //       // Ensure required data is present, otherwise navigate to home
-  //       if (!foodSurveyObj.meal_time || !foodSurveyObj.cuisine_type || !foodSurveyObj.company) {
-  //         navigate('/');
-  //         return;
-  //       }
-
-  //       const foods = await supabaseApi.food.getFoods({
-  //         [MEAL_TIME]: foodSurveyObj.meal_time,
-  //         [CUISINE_TYPE]: foodSurveyObj.cuisine_type,
-  //         [COMPANY]: foodSurveyObj.company
-  //       });
-  //       console.log(foods);
-
-  //       if (foods.length > 0) {
-  //         const randomFood = foods[Math.floor(Math.random() * foods.length)];
-  //         setFood(randomFood);
-  //       } else {
-  //         setFood(null);
-  //       }
-  //     } catch (error) {
-  //       setError(error.message);
-  //     }
-  //   };
-
-  //   fetchData();
-  // }, [foodSurveyObj.meal_time, foodSurveyObj.cuisine_type, foodSurveyObj.company]);
-
   const handleSearch = async (event) => {
     event.preventDefault();
     try {
       const result = await viewVideos(query);
       setVideos(result);
       setSelectedVideo(null);
-    } catch (error) {
+    } catch (isError) {
       setError(error.message);
     }
   };
