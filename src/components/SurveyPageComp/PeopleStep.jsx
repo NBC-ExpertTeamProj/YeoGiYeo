@@ -1,12 +1,24 @@
-import React from 'react';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
-import { StContainer, StH2, ItemContainer, Stdiv, StButtonDiv } from '../../styles/CommonStyles/surveyStyle';
 import Swal from 'sweetalert2';
+import { supabaseApi } from '../../api/supabaseApi/supabase.api';
+import { ItemContainer, StButtonDiv, StContainer, StH2, Stdiv } from '../../styles/CommonStyles/surveyStyle';
 import useStore from '../../zustand/store';
 
 const PeopleStep = ({ prevStep, setPeople, people, cuisineType, mealType }) => {
+  const queryClient = useQueryClient();
   const updateFoodSurveyObj = useStore((state) => state.updateFoodSurveyObj);
   const navigate = useNavigate();
+  const { isPending, mutate } = useMutation({
+    mutationFn: () => supabaseApi.counter.addCount(),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['count'] });
+      alert('성공했어!');
+    },
+    onError: () => {
+      alert('실패했어');
+    }
+  });
 
   const handleChange = (group) => {
     setPeople(group);
@@ -20,7 +32,7 @@ const PeopleStep = ({ prevStep, setPeople, people, cuisineType, mealType }) => {
         meal_time: mealType
       };
       updateFoodSurveyObj(surveyData);
-
+      mutate();
       navigate('/Result');
     } else {
       Swal.fire({ text: '식사 인원을 선택해주세요.', confirmButtonColor: '#3085d6' });
