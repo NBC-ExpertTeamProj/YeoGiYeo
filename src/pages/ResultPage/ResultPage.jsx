@@ -1,7 +1,11 @@
-import React, { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { viewVideos } from '../../api/YoutubeApi/YoutubeApi';
+import { COMPANY, CUISINE_TYPE, MEAL_TIME } from '../../api/supabaseApi/food.api';
+import { supabaseApi } from '../../api/supabaseApi/supabase.api';
 import LinkShare from '../../components/ResultPageComp/LinkShare';
 import RandomSuggestion from '../../components/ResultPageComp/RandomSuggestion';
-import { viewVideos } from '../../api/YoutubeApi/YoutubeApi';
+import useStore from '../../zustand/store';
 import styled from 'styled-components';
 
 const YoutubeCard = styled.div`
@@ -55,7 +59,6 @@ const ResultPage = () => {
   const foodSurveyObj = useStore((state) => state.foodSurveyObj);
 
   // const [loading, setLoading] = useState(false)
-
   useEffect(() => {
     console.log('foodSurveyObj :', foodSurveyObj);
     const fetchData = async () => {
@@ -89,17 +92,19 @@ const ResultPage = () => {
     fetchData();
   }, [foodSurveyObj.meal_time, foodSurveyObj.cuisine_type, foodSurveyObj.company]);
 
-  const handleSearch = async (event) => {
-    event.preventDefault();
+  useEffect(() => {
+    if (food) handleSearch(food.name);
+  }, [food]);
+
+  const handleSearch = async (keyword) => {
     try {
-      const result = await viewVideos(query);
+      const result = await viewVideos(keyword);
       setVideos(result);
       setSelectedVideo(null);
     } catch (error) {
       setError(error.message);
     }
   };
-
   const handleVideoSelect = (video) => {
     setSelectedVideo(video);
   };
@@ -134,15 +139,6 @@ const ResultPage = () => {
         <LinkShare url="https://YeoGiYeo.com" text="배포할 내용" />
       </div>
       <YoutubeCard>
-        <form onSubmit={handleSearch}>
-          <input
-            type="text"
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            placeholder="검색어를 입력하세요"
-          />
-          <button type="submit">검색</button>
-        </form>
         <YoutubeVideoList>
           {videos.map((video) => (
             <YoutubeVideo key={video.id.videoId} onClick={() => handleVideoSelect(video)}>
