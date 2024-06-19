@@ -12,6 +12,7 @@ const ResultPage = () => {
   const [videos, setVideos] = useState([]);
   const [query, setQuery] = useState('');
   const [selectedVideo, setSelectedVideo] = useState(null);
+  const [error, setError] = useState(null);
   const navigate = useNavigate();
   const foodSurveyObj = useStore((state) => state.foodSurveyObj);
 
@@ -29,12 +30,7 @@ const ResultPage = () => {
     return result;
   };
 
-  const {
-    data: foods,
-    isLoading,
-    isError,
-    error
-  } = useQuery({ queryKey: ['foods', foodSurveyObj], queryFn: getFoodList });
+  const { data: foods, isLoading } = useQuery({ queryKey: ['foods', foodSurveyObj], queryFn: getFoodList });
 
   console.log(foods);
 
