@@ -2,13 +2,14 @@ import React, { useState } from 'react';
 import MealTypeStep from '../../components/SurveyPageComp/MealTypeStep';
 import CuisineTypeStep from '../../components/SurveyPageComp/CuisineTypeStep';
 import PeopleStep from '../../components/SurveyPageComp/PeopleStep';
+import ProgressBar from '../../components/SurveyPageComp/ProgressBar';
 import styled from 'styled-components';
 
 const StSurveyContainer = styled.div`
   background-color: #d6eaf8;
   padding: 50px;
   width: 60vw;
-  height: 75vh;
+  height: 70vh;
   margin: auto;
   border-radius: 10px;
   box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.1);
@@ -28,10 +29,6 @@ const SurveyPage = () => {
   const [mealType, setMealType] = useState('');
   const [cuisineType, setCuisineType] = useState('');
   const [people, setPeople] = useState('');
-
-  console.log(mealType);
-  console.log(cuisineType);
-  console.log(people);
 
   const nextStep = () => setStep((prevStep) => prevStep + 1);
   const prevStep = () => setStep((prevStep) => prevStep - 1);
@@ -54,7 +51,12 @@ const SurveyPage = () => {
     />
   ];
 
-  return <StSurveyContainer>{steps[step]}</StSurveyContainer>;
+  return (
+    <>
+      <ProgressBar step={step} />
+      <StSurveyContainer>{steps[step]}</StSurveyContainer>
+    </>
+  );
 };
 
 export default SurveyPage;
