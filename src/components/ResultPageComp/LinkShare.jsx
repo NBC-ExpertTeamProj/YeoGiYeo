@@ -11,7 +11,7 @@ const LinkShare = () => {
   const handleClick = (platform) => {
     if (platform === 'kakao') {
       if (!window.Kakao.isInitialized()) {
-        window.Kakao.init('a826ec3bbf0933a6c0d71b28dbc2251c'); // YOUR_APP_KEY를 실제 Kakao 앱 키로 대체하세요
+        window.Kakao.init(`${import.meta.env.VITE_KAKAO_SHARE_KEY}`); // YOUR_APP_KEY를 실제 Kakao 앱 키로 대체하세요
       }
       window.Kakao.Link.sendDefault({
         objectType: 'feed',
@@ -33,7 +33,7 @@ const LinkShare = () => {
   useEffect(() => {
     // Kakao SDK 초기화
     if (window.Kakao && !window.Kakao.isInitialized()) {
-      window.Kakao.init('a826ec3bbf0933a6c0d71b28dbc2251c'); // YOUR_APP_KEY를 실제 Kakao 앱 키로 대체하세요
+      window.Kakao.init(`${import.meta.env.VITE_KAKAO_SHARE_KEY}`); // YOUR_APP_KEY를 실제 Kakao 앱 키로 대체하세요
     }
   }, []);
 
