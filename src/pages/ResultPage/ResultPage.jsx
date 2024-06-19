@@ -7,67 +7,77 @@ import LinkShare from '../../components/ResultPageComp/LinkShare';
 import RandomSuggestion from '../../components/ResultPageComp/RandomSuggestion';
 import useStore from '../../zustand/store';
 import { useQuery } from '@tanstack/react-query';
-import supabase from '../../supabase/supabase';
 
 const ResultPage = () => {
-  const [food, setFood] = useState(null);
-  const [error, setError] = useState(null);
   const [videos, setVideos] = useState([]);
   const [query, setQuery] = useState('');
   const [selectedVideo, setSelectedVideo] = useState(null);
   const navigate = useNavigate();
   const foodSurveyObj = useStore((state) => state.foodSurveyObj);
 
-  // const fetchFoods = async () => {
-  //   const response = await supabaseApi.food.getFoods({
-  //     [MEAL_TIME]: foodSurveyObj.meal_time,
-  //     [CUISINE_TYPE]: foodSurveyObj.cuisine_type,
-  //     [COMPANY]: foodSurveyObj.company
-  //   });
-  //   return response.data;
-  // };
-
-  // const { data, isPending, isError } = useQuery({
-  //   queryKey: ['food'],
-  //   queryFn: fetchFoods
-  // });
-
-  // console.log(data);
-
   // const [loading, setLoading] = useState(false)
 
-  useEffect(() => {
-    console.log('foodSurveyObj :', foodSurveyObj);
-    const fetchData = async () => {
-      // loading(true)
-      // setTimeout(()=>{})
-      try {
-        // Ensure required data is present, otherwise navigate to home
-        if (!foodSurveyObj.meal_time || !foodSurveyObj.cuisine_type || !foodSurveyObj.company) {
-          navigate('/');
-          return;
-        }
-
-        const foods = await supabaseApi.food.getFoods({
-          [MEAL_TIME]: foodSurveyObj.meal_time,
-          [CUISINE_TYPE]: foodSurveyObj.cuisine_type,
-          [COMPANY]: foodSurveyObj.company
-        });
-        console.log(foods);
-
-        if (foods.length > 0) {
-          const randomFood = foods[Math.floor(Math.random() * foods.length)];
-          setFood(randomFood);
-        } else {
-          setFood(null);
-        }
-      } catch (error) {
-        setError(error.message);
+  const { foods, isLoading, isError, error } = useQuery(
+    ['foods', foodSurveyObj.meal_time, foodSurveyObj.cuisine_type, foodSurveyObj.company],
+    async () => {
+      // Ensure required data is present, otherwise navigate to home
+      if (!foodSurveyObj.meal_time || !foodSurveyObj.cuisine_type || !foodSurveyObj.company) {
+        navigate('/');
+        return [];
       }
-    };
 
-    fetchData();
-  }, [foodSurveyObj.meal_time, foodSurveyObj.cuisine_type, foodSurveyObj.company]);
+      const result = await supabaseApi.food.getFoods({
+        [MEAL_TIME]: foodSurveyObj.meal_time,
+        [CUISINE_TYPE]: foodSurveyObj.cuisine_type,
+        [COMPANY]: foodSurveyObj.company
+      });
+      return result;
+    }
+  );
+
+  const [food, setFood] = useState(null);
+
+  useEffect(() => {
+    if (foods && foods.length > 0) {
+      const randomFood = foods[Math.floor(Math.random() * foods.length)];
+      setFood(randomFood);
+    } else {
+      setFood(null);
+    }
+  }, [foods]);
+
+  // useEffect(() => {
+  //   console.log('foodSurveyObj :', foodSurveyObj);
+  //   const fetchData = async () => {
+  //     // loading(true)
+  //     // setTimeout(()=>{})
+  //     try {
+  //       // Ensure required data is present, otherwise navigate to home
+  //       if (!foodSurveyObj.meal_time || !foodSurveyObj.cuisine_type || !foodSurveyObj.company) {
+  //         navigate('/');
+  //         return;
+  //       }
+
+  //       const foods = await supabaseApi.food.getFoods({
+  //         [MEAL_TIME]: foodSurveyObj.meal_time,
+  //         [CUISINE_TYPE]: foodSurveyObj.cuisine_type,
+  //         [COMPANY]: foodSurveyObj.company
+  //       });
+  //       console.log(foods);
+
+  //       if (foods.length > 0) {
+  //         const randomFood = foods[Math.floor(Math.random() * foods.length)];
+  //         setFood(randomFood);
+  //       } else {
+  //         setFood(null);
+  //       }
+  //     } catch (error) {
+  //       setError(error.message);
+  //     }
+  //   };
+
+  //   fetchData();
+  // }, [foodSurveyObj.meal_time, foodSurveyObj.cuisine_type, foodSurveyObj.company]);
 
   const handleSearch = async (event) => {
     event.preventDefault();
@@ -84,13 +94,26 @@ const ResultPage = () => {
     setSelectedVideo(video);
   };
 
+  const handleRetry = () => {
+    setFood(null);
+    setError(null);
+    setVideos([]);
+    setQuery('');
+    setSelectedVideo(null);
+    window.location.reload();
+  };
+
   return (
     <>
+      <div>
+        <h2>메뉴 추천 결과</h2>
+      </div>
       <div>
         <h3>설문 조사 결과 추천 메뉴는...</h3>
         {error && <p>Error: {error}</p>}
         {food ? <p>{food.name}</p> : <p>추천할 메뉴가 없습니다.</p>}
         {food && <img src={food.image_url} alt={food.name} />}
+        <button onClick={handleRetry}>다시하기</button>
       </div>
       <div>
         <RandomSuggestion />
