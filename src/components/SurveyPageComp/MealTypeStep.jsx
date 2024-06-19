@@ -43,17 +43,20 @@ const MealTypeStep = ({ nextStep, setMealType, mealType }) => {
   return (
     <StContainer>
       <StH2>식사 종류를 선택하세요</StH2>
-      {['점심', '저녁'].map((meal) => (
-        <Stdiv key={meal}>
+      {[
+        { ko: '점심', en: 'lunch' },
+        { ko: '저녁', en: 'dinner' }
+      ].map((meal) => (
+        <Stdiv key={meal.ko}>
           <input
             type="radio"
-            id={meal}
+            id={meal.ko}
             name="mealType"
-            value={meal}
-            checked={mealType === meal}
+            value={meal.en}
+            checked={mealType === meal.en}
             onChange={handleChange}
           />
-          <label htmlFor={meal}>{meal}</label>
+          <label htmlFor={meal.ko}>{meal.ko}</label>
         </Stdiv>
       ))}
       <StButton onClick={handleNextStep}>다음</StButton>

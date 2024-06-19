@@ -44,7 +44,14 @@ const SurveyPage = () => {
       setCuisineType={setCuisineType}
       cuisineType={cuisineType}
     />,
-    <PeopleStep nextStep={nextStep} prevStep={prevStep} setPeople={setPeople} people={people} />
+    <PeopleStep
+      nextStep={nextStep}
+      prevStep={prevStep}
+      setPeople={setPeople}
+      people={people}
+      cuisineType={cuisineType}
+      mealType={mealType}
+    />
   ];
 
   return <StSurveyContainer>{steps[step]}</StSurveyContainer>;
