@@ -1,6 +1,8 @@
 import React from 'react';
-import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
+import Swal from 'sweetalert2';
+import useStore from '../../zustand/store';
 
 const StContainer = styled.div`
   position: relative;
@@ -19,12 +21,16 @@ const Stdiv = styled.div`
   border: 1px solid black;
   padding: 6px;
   margin: 9px;
+  input,
+  label {
+    cursor: pointer;
+  }
 `;
 
 const StButtonDiv = styled.div`
   position: absolute;
-  bottom: 10px;
-  right: 10px;
+  bottom: 40px;
+  right: 40px;
   display: flex;
   gap: 5px;
   cursor: pointer;
@@ -35,6 +41,7 @@ const StButtonDiv = styled.div`
 `;
 
 const PeopleStep = ({ prevStep, setPeople, people, cuisineType, mealType }) => {
+  const updateFoodSurveyObj = useStore((state) => state.updateFoodSurveyObj);
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -48,9 +55,11 @@ const PeopleStep = ({ prevStep, setPeople, people, cuisineType, mealType }) => {
         cuisine_type: cuisineType,
         meal_time: mealType
       };
+      updateFoodSurveyObj(surveyData);
+
       navigate('/Result', { state: { surveyData } });
     } else {
-      alert('모든 항목을 선택해주세요.');
+      Swal.fire({ text: '식사 인원을 선택해주세요.', confirmButtonColor: '#3085d6' });
     }
   };
 
