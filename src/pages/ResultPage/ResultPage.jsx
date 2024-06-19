@@ -9,6 +9,7 @@ import RandomSuggestion from '../../components/ResultPageComp/RandomSuggestion';
 import useStore from '../../zustand/store';
 import styled from 'styled-components';
 import { useQuery } from '@tanstack/react-query';
+import useFoodRecommendation from '../../hooks/useFoodRecommendation';
 
 const YoutubeCard = styled.div`
   margin-top: 20px;
@@ -53,40 +54,9 @@ const VideoTitle = styled.h2`
 `;
 
 const ResultPage = () => {
+  const { food, error, handleRetry, isLoading } = useFoodRecommendation();
   const [videos, setVideos] = useState([]);
   const [selectedVideo, setSelectedVideo] = useState(null);
-  const [error, setError] = useState(null);
-  const navigate = useNavigate();
-  const foodSurveyObj = useStore((state) => state.foodSurveyObj);
-
-  const getFoodList = async () => {
-    if (!foodSurveyObj.meal_time || !foodSurveyObj.cuisine_type || !foodSurveyObj.company) {
-      navigate('/');
-      return [];
-    }
-
-    const result = await supabaseApi.food.getFoods({
-      [MEAL_TIME]: foodSurveyObj.meal_time,
-      [CUISINE_TYPE]: foodSurveyObj.cuisine_type,
-      [COMPANY]: foodSurveyObj.company
-    });
-    return result;
-  };
-
-  const { data: foods, isLoading } = useQuery({ queryKey: ['foods', foodSurveyObj], queryFn: getFoodList });
-
-  console.log(foods);
-
-  const [food, setFood] = useState(null);
-
-  useEffect(() => {
-    if (foods && foods.length > 0) {
-      const randomFood = foods[Math.floor(Math.random() * foods.length)];
-      setFood(randomFood);
-    } else {
-      setFood(null);
-    }
-  }, [foods]);
 
   useEffect(() => {
     if (food) handleSearch(food.name);
@@ -97,21 +67,13 @@ const ResultPage = () => {
       const result = await viewVideos(keyword);
       setVideos(result);
       setSelectedVideo(null);
-    } catch (isError) {
-      setError(error.message);
+    } catch (error) {
+      console.log(error.message);
     }
   };
 
   const handleVideoSelect = (video) => {
     setSelectedVideo(video);
-  };
-
-  const handleRetry = () => {
-    setFood(null);
-    setError(null);
-    setVideos([]);
-    setSelectedVideo(null);
-    window.location.reload();
   };
 
   return (
