@@ -4,11 +4,18 @@ export const YoutubeSection = styled.div`
   margin-top: ${({ theme }) => theme.spacing.medium};
   padding: ${({ theme }) => theme.spacing.medium};
   overflow: hidden;
+  justify-content: center;
+  width: 1050px;
+  margin: 0 auto;
+  font-family: ${({ theme }) => theme.fonts.bold};
+  overflow-y: auto;
 `;
+
 export const YoutubeContainer = styled.div`
   position: relative;
   display: flex;
   align-items: center;
+  position: relative;
 `;
 export const YoutubeVideoList = styled.div`
   display: flex;
@@ -48,10 +55,6 @@ export const WatchVideo = styled.div`
   margin-top: ${({ theme }) => theme.spacing.medium};
 `;
 
-export const VideoTitle = styled.h2`
-  margin-bottom: ${({ theme }) => theme.spacing.small};
-`;
-
 export const ScrollButton = styled.button`
   position: absolute;
   top: 50%;
@@ -61,12 +64,37 @@ export const ScrollButton = styled.button`
   padding: 10px;
   cursor: pointer;
   z-index: 10;
-
+  background: none;
   &.left {
-    left: 0;
+    left: -20px;
   }
 
   &.right {
-    right: 0;
+    right: -20px;
+  }
+`;
+export const ArrowLeft = styled.text`
+  display: inline-block;
+  width: 50px;
+  height: 50px;
+  border-left: 10px solid ${({ theme }) => theme.colors.darkBlue};
+  border-bottom: 10px solid ${({ theme }) => theme.colors.darkBlue};
+  transform: rotate(45deg);
+  &:hover {
+    border-left: ${({ theme }) => theme.colors.darkBlueFocus};
+    border-bottom: ${({ theme }) => theme.colors.darkBlueFocus};
+  }
+`;
+
+export const ArrowRight = styled.text`
+  display: inline-block;
+  width: 50px;
+  height: 50px;
+  border-left: 10px solid ${({ theme }) => theme.colors.darkBlue};
+  border-bottom: 10px solid ${({ theme }) => theme.colors.darkBlue};
+  transform: rotate(-135deg);
+  &:hover {
+    border-left: ${({ theme }) => theme.colors.darkBlueFocus};
+    border-bottom: ${({ theme }) => theme.colors.darkBlueFocus};
   }
 `;

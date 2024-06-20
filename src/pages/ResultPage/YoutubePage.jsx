@@ -2,14 +2,15 @@ import { useState, useEffect, useRef } from 'react';
 import { viewVideos } from '../../api/YoutubeApi/YoutubeApi';
 import {
   YoutubeSection,
-  VideoTitle,
   WatchVideo,
   YoutubeThumbnail,
   YoutubeTitle,
   YoutubeVideo,
   YoutubeVideoList,
   ScrollButton,
-  YoutubeContainer
+  YoutubeContainer,
+  ArrowLeft,
+  ArrowRight
 } from '../../styles/CommonStyles/YoutubeStyle';
 
 const YoutubePage = ({ keyword }) => {
@@ -48,7 +49,7 @@ const YoutubePage = ({ keyword }) => {
     <YoutubeSection>
       <YoutubeContainer>
         <ScrollButton className="scroll-button left" onClick={scrollLeft}>
-          ←
+          <ArrowLeft></ArrowLeft>
         </ScrollButton>
         <YoutubeVideoList ref={scrollContainerRef}>
           {videos.map((video) => (
@@ -59,13 +60,12 @@ const YoutubePage = ({ keyword }) => {
           ))}
         </YoutubeVideoList>
         <ScrollButton className="scroll-button right" onClick={scrollRight}>
-          →
+          <ArrowRight></ArrowRight>
         </ScrollButton>
       </YoutubeContainer>
 
       {selectedVideo && (
         <WatchVideo>
-          <VideoTitle>{selectedVideo.snippet.title}</VideoTitle>
           <iframe
             width="90%"
             height="750"
