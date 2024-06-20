@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { viewVideos } from '../../api/YoutubeApi/YoutubeApi';
 import KakaoMap from '../../components/ResultPageComp/KakaoMap';
 import LinkShare from '../../components/ResultPageComp/LinkShare';
 import RandomSuggestion from '../../components/ResultPageComp/RandomSuggestion';
@@ -10,38 +9,17 @@ import {
   RandomSuggestionContainer,
   ResultContainer,
   RetryButton,
-  ShareContainer,
-  VideoTitle,
-  WatchVideo,
-  YoutubeCard,
-  YoutubeThumbnail,
-  YoutubeTitle,
-  YoutubeVideo,
-  YoutubeVideoList
+  ShareContainer
 } from '../../styles/ResultPageStyles/ResultPageStyle';
+import YoutubePage from './YoutubePage';
 
 const ResultPage = () => {
   const { food, error, handleRetry, isLoading } = useFoodRecommendation();
-  const [videos, setVideos] = useState([]);
-  const [selectedVideo, setSelectedVideo] = useState(null);
+  const [query, setQuery] = useState('');
 
   useEffect(() => {
-    if (food) handleSearch(food.name);
+    if (food) setQuery(food.name);
   }, [food]);
-
-  const handleSearch = async (keyword) => {
-    try {
-      const result = await viewVideos(keyword);
-      setVideos(result);
-      setSelectedVideo(null);
-    } catch (isError) {
-      setError(error);
-    }
-  };
-
-  const handleVideoSelect = (video) => {
-    setSelectedVideo(video);
-  };
 
   return (
     <>
@@ -62,30 +40,7 @@ const ResultPage = () => {
         <p>Share this page</p>
         <LinkShare url="https://YeoGiYeo.com" text="오늘의 식사 메뉴를 추천받아 보세요!" />
       </ShareContainer>
-      <YoutubeCard>
-        <YoutubeVideoList>
-          {videos.map((video) => (
-            <YoutubeVideo key={video.id.videoId} onClick={() => handleVideoSelect(video)}>
-              <YoutubeTitle>{video.snippet.title}</YoutubeTitle>
-              <YoutubeThumbnail src={video.snippet.thumbnails.medium.url} alt={`${video.snippet.title}의 썸네일`} />
-            </YoutubeVideo>
-          ))}
-        </YoutubeVideoList>
-        {selectedVideo && (
-          <WatchVideo>
-            <VideoTitle>{selectedVideo.snippet.title}</VideoTitle>
-            <iframe
-              width="90%"
-              height="750"
-              src={`https://www.youtube.com/embed/${selectedVideo.id.videoId}`}
-              frameBorder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-              title="YouTube video player"
-            ></iframe>
-          </WatchVideo>
-        )}
-      </YoutubeCard>
+      {query && <YoutubePage keyword={query} />}
       <MapContainer>
         <p>추천 받은 메뉴를 파는 곳</p>
         {food && <KakaoMap foodName={food.name} />} {/* food.name을 KakaoMap에 전달 */}
