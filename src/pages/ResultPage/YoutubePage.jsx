@@ -1,4 +1,3 @@
-// src/pages/YoutubePage.jsx
 import { useState, useEffect, useRef } from 'react';
 import { viewVideos } from '../../api/YoutubeApi/YoutubeApi';
 import {
@@ -20,7 +19,7 @@ const YoutubePage = ({ keyword }) => {
   const scrollContainerRef = useRef(null);
 
   useEffect(() => {
-    if (keyword) handleSearch(keyword);
+    if (keyword) handleSearch(keyword + '먹방');
   }, [keyword]);
 
   const handleSearch = async (keyword) => {
@@ -38,18 +37,18 @@ const YoutubePage = ({ keyword }) => {
   };
 
   const scrollLeft = () => {
-    scrollContainerRef.current.scrollBy({ left: -300, behavior: 'smooth' });
+    scrollContainerRef.current.scrollBy({ left: -500, behavior: 'smooth' });
   };
 
   const scrollRight = () => {
-    scrollContainerRef.current.scrollBy({ left: 300, behavior: 'smooth' });
+    scrollContainerRef.current.scrollBy({ left: 500, behavior: 'smooth' });
   };
 
   return (
     <YoutubeSection>
       <YoutubeContainer>
         <ScrollButton className="scroll-button left" onClick={scrollLeft}>
-          Left
+          ←
         </ScrollButton>
         <YoutubeVideoList ref={scrollContainerRef}>
           {videos.map((video) => (
@@ -60,7 +59,7 @@ const YoutubePage = ({ keyword }) => {
           ))}
         </YoutubeVideoList>
         <ScrollButton className="scroll-button right" onClick={scrollRight}>
-          Right
+          →
         </ScrollButton>
       </YoutubeContainer>
 

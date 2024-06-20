@@ -11,7 +11,7 @@ export const viewVideos = async (query) => {
     params: {
       part: 'snippet',
       q: query,
-      maxResults: 10,
+      maxResults: 25,
       type: 'video',
       key: KEY
     }

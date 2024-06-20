@@ -17,9 +17,11 @@ export const YoutubeVideoList = styled.div`
   scroll-behavior: smooth;
   gap: ${({ theme }) => theme.spacing.small};
   height: 100%;
+  margin: 0 40px;
 `;
 
 export const YoutubeVideo = styled.div`
+  width: 220px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -27,7 +29,6 @@ export const YoutubeVideo = styled.div`
   padding: ${({ theme }) => theme.spacing.small};
   cursor: pointer;
   border-radius: ${({ theme }) => theme.borderRadius};
-  width: 220px;
 `;
 
 export const YoutubeTitle = styled.h3`
@@ -39,7 +40,8 @@ export const YoutubeTitle = styled.h3`
 
 export const YoutubeThumbnail = styled.img`
   margin-top: ${({ theme }) => theme.spacing.small};
-  width: 100%;
+  width: 198px;
+  height: 111px;
 `;
 
 export const WatchVideo = styled.div`
@@ -54,15 +56,17 @@ export const ScrollButton = styled.button`
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  background-color: rgba(0, 0, 0, 0.5);
-  color: white;
+  color: black;
   border: none;
   padding: 10px;
   cursor: pointer;
   z-index: 10;
 
-  &:disabled {
-    background-color: rgba(0, 0, 0, 0.2);
-    cursor: not-allowed;
+  &.left {
+    left: 0;
+  }
+
+  &.right {
+    right: 0;
   }
 `;
