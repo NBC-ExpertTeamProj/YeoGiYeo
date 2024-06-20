@@ -25,7 +25,9 @@ export const StSurveyContainer = styled.div`
   border: 1px solid rgba(0, 0, 0, 0.1);
   box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.1);
   font-size: 20px;
-
+  max-width: 800px;
+  min-width: 600px;
+  min-height: 650px;
   button {
     padding: 7px;
     border: 1px solid transparent;
