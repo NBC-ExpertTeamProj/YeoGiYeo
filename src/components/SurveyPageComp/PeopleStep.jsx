@@ -13,11 +13,8 @@ const PeopleStep = ({ prevStep, setPeople, people, cuisineType, mealType }) => {
     mutationFn: () => supabaseApi.counter.addCount(),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['count'] });
-      alert('성공했어!');
     },
-    onError: () => {
-      alert('실패했어');
-    }
+    onError: () => {}
   });
 
   const handleChange = (group) => {
@@ -33,7 +30,7 @@ const PeopleStep = ({ prevStep, setPeople, people, cuisineType, mealType }) => {
       };
       updateFoodSurveyObj(surveyData);
       mutate();
-      navigate('/Result');
+      navigate('/loading');
     } else {
       Swal.fire({ text: '식사 인원을 선택해주세요.', confirmButtonColor: '#3085d6' });
     }
