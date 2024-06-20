@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import RobotImg from '../../assets/Robot.jpeg';
@@ -98,15 +99,15 @@ const StDiv = styled.div`
 const Loading = () => {
   const navigate = useNavigate();
 
-  // useEffect(() => {
-  //   const redirectToResult = () => {
-  //     navigate('/Result');
-  //   };
+  useEffect(() => {
+    const redirectToResult = () => {
+      navigate('/Result');
+    };
 
-  //   const timeoutId = setTimeout(redirectToResult, 3000);
+    const timeoutId = setTimeout(redirectToResult, 3000);
 
-  //   return () => clearTimeout(timeoutId);
-  // }, [navigate]);
+    return () => clearTimeout(timeoutId);
+  }, [navigate]);
 
   return (
     <CenteredContainer>

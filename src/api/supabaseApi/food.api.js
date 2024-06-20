@@ -18,14 +18,25 @@ class FoodApi {
     return data;
   }
   async getFoods(queryObj) {
-    const { data, error } = await this.#food
-      .select()
-      .contains(MEAL_TIME, [queryObj[MEAL_TIME]])
-      .eq(CUISINE_TYPE, queryObj[CUISINE_TYPE])
-      .contains(COMPANY, [queryObj[COMPANY]]);
+    let data, error;
+
+    if (queryObj[CUISINE_TYPE] === 'all') {
+      ({ data, error } = await this.#food
+        .select()
+        .contains(MEAL_TIME, [queryObj[MEAL_TIME]])
+        .contains(COMPANY, [queryObj[COMPANY]]));
+    } else {
+      ({ data, error } = await this.#food
+        .select()
+        .contains(MEAL_TIME, [queryObj[MEAL_TIME]])
+        .eq(CUISINE_TYPE, queryObj[CUISINE_TYPE])
+        .contains(COMPANY, [queryObj[COMPANY]]));
+    }
+
     if (error) {
       throw new Error(error.message);
     }
+
     return data;
   }
 }
