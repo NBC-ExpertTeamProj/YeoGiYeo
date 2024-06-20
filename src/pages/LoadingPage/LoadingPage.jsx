@@ -27,7 +27,7 @@ const Loading = () => {
       <StDiv>
         <BackgroundImage />
         <Overlay />
-        <StTextContainer>FoodGpt가 적합한 메뉴를 찾고 있습니다.</StTextContainer>
+        <StTextContainer>FoodGPT가 적합한 메뉴를 찾고 있습니다.</StTextContainer>
       </StDiv>
 
       <LoadingContainer>

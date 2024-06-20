@@ -2,7 +2,6 @@ import { useEffect } from 'react';
 
 const KakaoMap = ({ foodName }) => {
   useEffect(() => {
-    console.log('Kakao API Key:', import.meta.env.VITE_KAKAO_API_KEY); // 환경 변수 확인용 콘솔 로그
     const createMap = () => {
       const { kakao } = window;
       kakao.maps.load(() => {
