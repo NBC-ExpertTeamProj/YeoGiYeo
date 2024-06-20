@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import RobotImg from '../../assets/Robot.jpeg';
@@ -7,24 +6,20 @@ const CenteredContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 50%;
-  width: 50%;
   margin: auto;
   position: relative;
 `;
 
 const BackgroundImage = styled.div`
+  box-sizing: border-box;
   width: 100%;
   height: 100%;
   background-image: url(${RobotImg});
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  object-fit: cover;
-  position: absolute;
-  top: 0;
-  left: 0;
   z-index: 0;
+  border-radius: 20px;
 `;
 
 const Overlay = styled.div`
@@ -33,11 +28,16 @@ const Overlay = styled.div`
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.6);
   z-index: 1;
+  box-shadow: 0px 0px 6px 6px rgba(255, 255, 255, 1) inset;
+  -webkit-box-shadow: 0px 0px 6px 6px rgba(255, 255, 255, 1) inset;
+  -moz-box-shadow: 0px 0px 6px 6px rgba(255, 255, 255, 1) inset;
+  border-radius: 20px;
 `;
 
 const LoadingContainer = styled.div`
+  position: absolute;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -82,8 +82,17 @@ const LoadingContainer = styled.div`
 `;
 
 const StDiv = styled.div`
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 800px;
   height: 800px;
+  box-sizing: border-box;
+  box-shadow: 0px 0px 6px 6px rgba(255, 255, 255, 1) inset;
+  -webkit-box-shadow: 0px 0px 6px 6px rgba(255, 255, 255, 1) inset;
+  -moz-box-shadow: 0px 0px 6px 6px rgba(255, 255, 255, 1) inset;
+  border-radius: 20px;
 `;
 
 const Loading = () => {
@@ -103,8 +112,9 @@ const Loading = () => {
     <CenteredContainer>
       <StDiv>
         <BackgroundImage />
+        <Overlay />
       </StDiv>
-      <Overlay />
+
       <LoadingContainer>
         <span>메</span>
         <span>뉴</span>
