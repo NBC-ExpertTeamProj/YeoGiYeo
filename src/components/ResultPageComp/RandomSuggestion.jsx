@@ -50,22 +50,22 @@ const RandomSuggestion = ({ food }) => {
     <>
       <div>
         <SuggestionButton onClick={fetchRandomDrinkPairing} disabled={drinkPairing !== undefined}>
-          {food.name}이랑 가장 어울리는 주종은?
+          {food.name}(이)랑 가장 어울리는 주종은?
         </SuggestionButton>
         {drinkPairing && (
           <ResultContainer>
-            <p>{drinkPairing.name}</p>
+            <h1>{drinkPairing.name}</h1>
             <FoodImage src={drinkPairing.image_url} alt={drinkPairing.name} />
           </ResultContainer>
         )}
       </div>
       <div>
         <SuggestionButton onClick={fetchRandomDessertPairing} disabled={dessertPairing !== undefined}>
-          {food.name}이랑 가장 어울리는 디저트는?
+          {food.name}(이)랑 가장 어울리는 디저트는?
         </SuggestionButton>
         {dessertPairing && (
           <ResultContainer>
-            <p>{dessertPairing.name}</p>
+            <h1>{dessertPairing.name}</h1>
             <FoodImage src={dessertPairing.image_url} alt={dessertPairing.name} />
           </ResultContainer>
         )}

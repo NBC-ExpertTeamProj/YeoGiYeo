@@ -86,19 +86,6 @@ export const FoodImage = styled.img`
   margin-bottom: ${({ theme }) => theme.spacing.medium};
 `;
 
-export const RetryButton = styled.button`
-  margin-top: ${({ theme }) => theme.spacing.small};
-  padding: ${({ theme }) => theme.spacing.small} ${({ theme }) => theme.spacing.medium};
-  background-color: ${({ theme }) => theme.colors.darkBlue};
-  color: ${({ theme }) => theme.colors.white};
-  border: none;
-  border-radius: ${({ theme }) => theme.borderRadius};
-  cursor: pointer;
-  &:hover {
-    background-color: ${({ theme }) => theme.colors.darkBlueFocus};
-  }
-`;
-
 export const RandomSuggestionContainer = styled.div`
   margin-top: ${({ theme }) => theme.spacing.medium};
 `;
@@ -167,5 +154,24 @@ export const SuggestionButton = styled.button`
 
   &:hover {
     background-color: ${({ theme }) => theme.colors.darkBlueFocus}; /* Change on hover */
+  }
+`;
+
+export const RetryButton = styled.button`
+  font-size: ${({ theme }) => theme.fontsize.medium};
+  color: ${({ theme }) => theme.colors.white};
+  background-color: ${({ theme }) => theme.colors.black};
+  border-radius: ${({ theme }) => theme.borderRadius};
+  padding: ${({ theme }) => theme.spacing.small} ${({ theme }) => theme.spacing.small};
+  margin-bottom: ${({ theme }) => theme.spacing.small};
+  width: 600px;
+
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+  font-family: ${({ theme }) => theme.fonts.bold};
+  border: none;
+
+  &:hover {
+    background-color: ${({ theme }) => theme.colors.error};
   }
 `;

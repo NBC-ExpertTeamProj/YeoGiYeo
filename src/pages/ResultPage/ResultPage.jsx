@@ -9,6 +9,7 @@ import {
   MapContainer,
   RandomSuggestionContainer,
   ResultContainer,
+  RetryButton,
   ShareContainer,
   VideoTitle,
   WatchVideo,
@@ -56,7 +57,7 @@ const ResultPage = () => {
       </ResultContainer>
       <RandomSuggestionContainer>
         {food && <RandomSuggestion food={food} />}
-        <PositiveButton onClick={handleRetry}>다시하기</PositiveButton>
+        <RetryButton onClick={handleRetry}>다시하기</RetryButton>
       </RandomSuggestionContainer>
       <ShareContainer>
         <p>Share this page</p>
