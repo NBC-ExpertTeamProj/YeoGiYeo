@@ -113,6 +113,7 @@ const Loading = () => {
       <StDiv>
         <BackgroundImage />
         <Overlay />
+        <StTextContainer>FoodGpt가 적합한 메뉴를 찾고 있습니다.</StTextContainer>
       </StDiv>
 
       <LoadingContainer>
@@ -128,3 +129,12 @@ const Loading = () => {
 };
 
 export default Loading;
+
+const StTextContainer = styled.div`
+  top: 80%;
+  z-index: 10;
+  font-size: 30px;
+  position: absolute;
+  color: #ffffff;
+  text-shadow: 0 0 2px #00b3ff, 0 0 2px #00b3ff, 0 0 12px #00b3ff, 0 0 2px #00b3ff, 0 0 2px #00b3ff, 0 0 2px #00b3ff;
+`;
