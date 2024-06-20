@@ -87,7 +87,7 @@ export const ShareImage = styled.img`
 
 export const MapContainer = styled.div`
   max-width: 1000px;
-  margin: ${({ theme }) => theme.spacing.medium} auto; /* Center horizontally */
+  margin: ${({ theme }) => theme.spacing.medium} auto;
   margin-bottom: ${({ theme }) => theme.spacing.extraLarge};
 
   > p {
@@ -101,20 +101,20 @@ export const MapContainer = styled.div`
 export const SuggestionButton = styled.button`
   font-size: ${({ theme }) => theme.fontsize.medium};
   color: ${({ theme }) => theme.colors.white};
-  background-color: ${({ theme }) => theme.colors.darkBlue};
+  background-color: ${({ theme, clicked }) => (clicked ? theme.colors.gray : theme.colors.darkBlue)};
   border-radius: ${({ theme }) => theme.borderRadius};
   padding: ${({ theme }) => theme.spacing.small} ${({ theme }) => theme.spacing.small};
   margin-bottom: ${({ theme }) => theme.spacing.small};
   width: 600px;
 
-  cursor: pointer;
+  cursor: ${({ clicked }) => (clicked ? 'not-allowed' : 'pointer')};
   transition: background-color 0.3s, transform 0.3s;
   font-family: ${({ theme }) => theme.fonts.bold};
   border: none;
 
   &:hover {
-    background-color: ${({ theme }) => theme.colors.darkBlueFocus};
-    transform: translateY(-3px);
+    background-color: ${({ theme, clicked }) => (clicked ? theme.colors.gray : theme.colors.darkBlueFocus)};
+    transform: ${({ clicked }) => (clicked ? 'none' : 'translateY(-3px)')};
   }
 `;
 

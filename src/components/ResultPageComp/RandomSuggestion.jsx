@@ -5,6 +5,8 @@ import { FoodImage, ResultContainer, SuggestionButton } from '../../styles/Resul
 const RandomSuggestion = ({ food }) => {
   const [drinkPairing, setDrinkPairing] = useState(undefined);
   const [dessertPairing, setDessertPairing] = useState(undefined);
+  const [drinkClicked, setDrinkClicked] = useState(false);
+  const [dessertClicked, setDessertClicked] = useState(false);
 
   const fetchRandomDrinkPairing = async () => {
     try {
@@ -17,6 +19,7 @@ const RandomSuggestion = ({ food }) => {
             name: data[0].alcohol_name,
             image_url: data[0].alcohol_image_url
           });
+          setDrinkClicked(true);
         } else {
           console.error('No random drink pairing found.');
         }
@@ -37,6 +40,7 @@ const RandomSuggestion = ({ food }) => {
             name: data[0].dessert_name,
             image_url: data[0].dessert_image_url
           });
+          setDessertClicked(true);
         } else {
           console.error('No random dessert pairing found.');
         }
@@ -49,7 +53,7 @@ const RandomSuggestion = ({ food }) => {
   return (
     <>
       <div>
-        <SuggestionButton onClick={fetchRandomDrinkPairing} disabled={drinkPairing !== undefined}>
+        <SuggestionButton onClick={fetchRandomDrinkPairing} clicked={drinkClicked}>
           {food.name}(이)랑 가장 어울리는 주종은?
         </SuggestionButton>
         {drinkPairing && (
@@ -60,7 +64,7 @@ const RandomSuggestion = ({ food }) => {
         )}
       </div>
       <div>
-        <SuggestionButton onClick={fetchRandomDessertPairing} disabled={dessertPairing !== undefined}>
+        <SuggestionButton onClick={fetchRandomDessertPairing} clicked={dessertClicked}>
           {food.name}(이)랑 가장 어울리는 디저트는?
         </SuggestionButton>
         {dessertPairing && (
