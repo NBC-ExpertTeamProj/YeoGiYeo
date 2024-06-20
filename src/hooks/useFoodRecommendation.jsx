@@ -39,7 +39,7 @@ const useFoodRecommendation = () => {
   const handleRetry = () => {
     setFood(null);
     setError(null);
-    window.location.reload();
+    navigate('/');
   };
 
   return {
