@@ -1,14 +1,14 @@
-import React, { useState, useEffect } from 'react';
-import KakaoMap from '../../components/ResultPageComp/KakaoMap'; // 지도를 포함한 컴포넌트를 가져옵니다.
+import { useQuery } from '@tanstack/react-query';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
 import { viewVideos } from '../../api/YoutubeApi/YoutubeApi';
 import { COMPANY, CUISINE_TYPE, MEAL_TIME } from '../../api/supabaseApi/food.api';
 import { supabaseApi } from '../../api/supabaseApi/supabase.api';
+import KakaoMap from '../../components/ResultPageComp/KakaoMap'; // 지도를 포함한 컴포넌트를 가져옵니다.
 import LinkShare from '../../components/ResultPageComp/LinkShare';
 import RandomSuggestion from '../../components/ResultPageComp/RandomSuggestion';
 import useStore from '../../zustand/store';
-import styled from 'styled-components';
-import { useQuery } from '@tanstack/react-query';
 
 const YoutubeCard = styled.div`
   margin-top: 20px;
@@ -98,7 +98,7 @@ const ResultPage = () => {
       setVideos(result);
       setSelectedVideo(null);
     } catch (isError) {
-      setError(error.message);
+      setError(error);
     }
   };
 

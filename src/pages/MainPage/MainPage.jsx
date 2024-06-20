@@ -41,7 +41,7 @@ const Subtitle = styled.h2`
   color: #666;
 `;
 
-const StartButton = styled.button`
+export const StartButton = styled.button`
   width: 200px;
   border-radius: 10px;
   font-size: 18px;
@@ -73,7 +73,7 @@ const LogoImage = styled.div`
   background-repeat: no-repeat;
   margin-bottom: 30px;
   border-radius: 15px;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  /* box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2); */
 `;
 
 const MainPage = () => {
@@ -95,12 +95,24 @@ const MainPage = () => {
   return (
     <Container>
       <LogoImage />
-      <TitleName>랜덤 메뉴 추천</TitleName>
-      <Subtitle>매일 무엇을 먹을지 고민되시나요? 지금 시작해보세요!</Subtitle>
-      <Subtitle>{count}</Subtitle>
+      <StTitleName>랜덤 메뉴 추천</StTitleName>
+      <StSubtitle>매일 무엇을 먹을지 고민되시나요? 지금 시작해보세요!</StSubtitle>
+      <Subtitle>
+        현재 총 <StSpan>{count}</StSpan> 명이 메뉴 추천을 받았습니다.
+      </Subtitle>
       <StartButton onClick={handleStartClick}>시작</StartButton>
     </Container>
   );
 };
 
 export default MainPage;
+const StTitleName = styled(TitleName)`
+  margin-bottom: 45px;
+  margin-top: 0;
+`;
+const StSpan = styled.span`
+  font-weight: 800;
+`;
+const StSubtitle = styled(Subtitle)`
+  margin-bottom: 10px;
+`;

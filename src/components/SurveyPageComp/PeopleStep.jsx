@@ -2,8 +2,9 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import { supabaseApi } from '../../api/supabaseApi/supabase.api';
-import { ItemContainer, StButtonDiv, StContainer, StH2, Stdiv } from '../../styles/CommonStyles/surveyStyle';
+import { ItemContainer, StButtonDiv, StCardDiv, StContainer, StH2 } from '../../styles/CommonStyles/surveyStyle';
 import useStore from '../../zustand/store';
+import { StInputContainer, StartButton } from './MealTypeStep';
 
 const PeopleStep = ({ prevStep, setPeople, people, cuisineType, mealType }) => {
   const queryClient = useQueryClient();
@@ -35,29 +36,31 @@ const PeopleStep = ({ prevStep, setPeople, people, cuisineType, mealType }) => {
       mutate();
       navigate('/Result');
     } else {
-      Swal.fire({ text: '식사 인원을 선택해주세요.', confirmButtonColor: '#3085d6' });
+      Swal.fire({ text: '누구와 함께 식사하실지 선택해주세요!', confirmButtonColor: '#3085d6' });
     }
   };
 
   return (
     <StContainer>
-      <StH2>몇 명이서 식사하시나요?</StH2>
-      <ItemContainer>
-        {[
-          { ko: '혼밥', en: 'alone' },
-          { ko: '친구', en: 'friends' },
-          { ko: '연인', en: 'partner' },
-          { ko: '가족모임', en: 'family' }
-        ].map((group) => (
-          <Stdiv key={group.en} onClick={() => handleChange(group.en)} $selected={people === group.en}>
-            {group.ko}
-          </Stdiv>
-        ))}
-      </ItemContainer>
-      <StButtonDiv>
-        <button onClick={prevStep}>이전</button>
-        <button onClick={handlePage}>결과페이지로</button>
-      </StButtonDiv>
+      <StInputContainer>
+        <StH2>누구와 함께 식사하세요?</StH2>
+        <ItemContainer>
+          {[
+            { ko: '혼밥', en: 'alone' },
+            { ko: '친구', en: 'friends' },
+            { ko: '연인', en: 'partner' },
+            { ko: '가족모임', en: 'family' }
+          ].map((group) => (
+            <StCardDiv key={group.en} onClick={() => handleChange(group.en)} $selected={people === group.en}>
+              {group.ko}
+            </StCardDiv>
+          ))}
+        </ItemContainer>
+        <StButtonDiv>
+          <StartButton onClick={prevStep}>이전</StartButton>
+          <StartButton onClick={handlePage}>결과페이지로</StartButton>
+        </StButtonDiv>
+      </StInputContainer>
     </StContainer>
   );
 };
