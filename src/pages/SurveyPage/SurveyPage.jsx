@@ -4,6 +4,7 @@ import CuisineTypeStep from '../../components/SurveyPageComp/CuisineTypeStep';
 import PeopleStep from '../../components/SurveyPageComp/PeopleStep';
 import ProgressBar from '../../components/SurveyPageComp/ProgressBar';
 import { PageContainer, StSurveyContainer } from '../../styles/CommonStyles/surveyStyle';
+import Loading from '../LoadingPage/LoadingPage';
 
 const SurveyPage = () => {
   const [step, setStep] = useState(0);
