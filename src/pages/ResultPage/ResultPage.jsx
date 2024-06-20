@@ -1,92 +1,29 @@
-import { useQuery } from '@tanstack/react-query';
-import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import styled from 'styled-components';
+import { useEffect, useState } from 'react';
 import { viewVideos } from '../../api/YoutubeApi/YoutubeApi';
-import { COMPANY, CUISINE_TYPE, MEAL_TIME } from '../../api/supabaseApi/food.api';
-import { supabaseApi } from '../../api/supabaseApi/supabase.api';
-import KakaoMap from '../../components/ResultPageComp/KakaoMap'; // 지도를 포함한 컴포넌트를 가져옵니다.
+import KakaoMap from '../../components/ResultPageComp/KakaoMap';
 import LinkShare from '../../components/ResultPageComp/LinkShare';
 import RandomSuggestion from '../../components/ResultPageComp/RandomSuggestion';
-import useStore from '../../zustand/store';
-
-const YoutubeCard = styled.div`
-  margin-top: 20px;
-  padding: 20px;
-`;
-const YoutubeVideoList = styled.div`
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 10px;
-  height: 100%;
-`;
-
-const YoutubeVideo = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  border: 1px solid #ccc;
-  padding: 15px;
-  cursor: pointer;
-  border-radius: 10px;
-  margin: 0 auto;
-  width: 220px;
-  margin-left: 120px;
-`;
-
-const YoutubeTitle = styled.h3`
-  font-size: 15px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-`;
-
-const YoutubeThumbnail = styled.img`
-  margin-top: 10px;
-  width: 100%;
-`;
-const WatchVideo = styled.div`
-  margin-top: 20px;
-`;
-const VideoTitle = styled.h2`
-  margin-bottom: 10px;
-`;
+import useFoodRecommendation from '../../hooks/useFoodRecommendation';
+import {
+  FoodImage,
+  MapContainer,
+  RandomSuggestionContainer,
+  ResultContainer,
+  RetryButton,
+  ShareContainer,
+  VideoTitle,
+  WatchVideo,
+  YoutubeCard,
+  YoutubeThumbnail,
+  YoutubeTitle,
+  YoutubeVideo,
+  YoutubeVideoList
+} from '../../styles/ResultPageStyles/ResultPageStyle';
 
 const ResultPage = () => {
+  const { food, error, handleRetry, isLoading } = useFoodRecommendation();
   const [videos, setVideos] = useState([]);
   const [selectedVideo, setSelectedVideo] = useState(null);
-  const [error, setError] = useState(null);
-  const navigate = useNavigate();
-  const foodSurveyObj = useStore((state) => state.foodSurveyObj);
-
-  const getFoodList = async () => {
-    if (!foodSurveyObj.meal_time || !foodSurveyObj.cuisine_type || !foodSurveyObj.company) {
-      navigate('/');
-      return [];
-    }
-
-    const result = await supabaseApi.food.getFoods({
-      [MEAL_TIME]: foodSurveyObj.meal_time,
-      [CUISINE_TYPE]: foodSurveyObj.cuisine_type,
-      [COMPANY]: foodSurveyObj.company
-    });
-    return result;
-  };
-
-  const { data: foods, isLoading } = useQuery({ queryKey: ['foods', foodSurveyObj], queryFn: getFoodList });
-
-  console.log(foods);
-
-  const [food, setFood] = useState(null);
-
-  useEffect(() => {
-    if (foods && foods.length > 0) {
-      const randomFood = foods[Math.floor(Math.random() * foods.length)];
-      setFood(randomFood);
-    } else {
-      setFood(null);
-    }
-  }, [foods]);
 
   useEffect(() => {
     if (food) handleSearch(food.name);
@@ -106,33 +43,25 @@ const ResultPage = () => {
     setSelectedVideo(video);
   };
 
-  const handleRetry = () => {
-    setFood(null);
-    setError(null);
-    setVideos([]);
-    setSelectedVideo(null);
-    window.location.reload();
-  };
-
   return (
     <>
-      <div>
-        <h2>메뉴 추천 결과</h2>
-      </div>
-      <div>
-        <h3>설문 조사 결과 추천 메뉴는...</h3>
+      <ResultContainer>
+        <h1>메뉴 추천 결과</h1>
+      </ResultContainer>
+      <ResultContainer>
+        <p>설문 조사 결과 추천 메뉴는...</p>
         {error && <p>Error: {error}</p>}
-        {food ? <p>{food.name}</p> : <p>추천할 메뉴가 없습니다.</p>}
-        {food && <img src={food.image_url} alt={food.name} />}
-        <button onClick={handleRetry}>다시하기</button>
-      </div>
-      <div>
-        <RandomSuggestion />
-      </div>
-      <div>
-        <h1>Share this page</h1>
-        <LinkShare url="https://YeoGiYeo.com" text="배포할 내용" />
-      </div>
+        {food ? <h1>{food.name}</h1> : <h1>추천할 메뉴가 없습니다.</h1>}
+        {food && <FoodImage src={food.image_url} alt={food.name} />}
+      </ResultContainer>
+      <RandomSuggestionContainer>
+        {food && <RandomSuggestion food={food} />}
+        <RetryButton onClick={handleRetry}>다시하기</RetryButton>
+      </RandomSuggestionContainer>
+      <ShareContainer>
+        <p>Share this page</p>
+        <LinkShare url="https://YeoGiYeo.com" text="오늘의 식사 메뉴를 추천받아 보세요!" />
+      </ShareContainer>
       <YoutubeCard>
         <YoutubeVideoList>
           {videos.map((video) => (
@@ -157,10 +86,10 @@ const ResultPage = () => {
           </WatchVideo>
         )}
       </YoutubeCard>
-      <div>
-        <h2>지도</h2>
+      <MapContainer>
+        <p>추천 받은 메뉴를 파는 곳</p>
         {food && <KakaoMap foodName={food.name} />} {/* food.name을 KakaoMap에 전달 */}
-      </div>
+      </MapContainer>
     </>
   );
 };
