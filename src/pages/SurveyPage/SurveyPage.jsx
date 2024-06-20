@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
-import MealTypeStep from '../../components/SurveyPageComp/MealTypeStep';
 import CuisineTypeStep from '../../components/SurveyPageComp/CuisineTypeStep';
+import MealTypeStep from '../../components/SurveyPageComp/MealTypeStep';
 import PeopleStep from '../../components/SurveyPageComp/PeopleStep';
 import ProgressBar from '../../components/SurveyPageComp/ProgressBar';
 import { PageContainer, StSurveyContainer } from '../../styles/CommonStyles/surveyStyle';
-import Loading from '../LoadingPage/LoadingPage';
 
 const SurveyPage = () => {
   const [step, setStep] = useState(0);
@@ -16,14 +15,16 @@ const SurveyPage = () => {
   const prevStep = () => setStep((prevStep) => prevStep - 1);
 
   const steps = [
-    <MealTypeStep nextStep={nextStep} setMealType={setMealType} mealType={mealType} />,
+    <MealTypeStep key="id-1" nextStep={nextStep} setMealType={setMealType} mealType={mealType} />,
     <CuisineTypeStep
+      key="id-2"
       nextStep={nextStep}
       prevStep={prevStep}
       setCuisineType={setCuisineType}
       cuisineType={cuisineType}
     />,
     <PeopleStep
+      key="id-3"
       nextStep={nextStep}
       prevStep={prevStep}
       setPeople={setPeople}

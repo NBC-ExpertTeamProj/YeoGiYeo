@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react';
-import KakaoMap from '../../components/ResultPageComp/KakaoMap';
+import { useEffect, useState } from 'react';
 import { viewVideos } from '../../api/YoutubeApi/YoutubeApi';
+import KakaoMap from '../../components/ResultPageComp/KakaoMap';
 import LinkShare from '../../components/ResultPageComp/LinkShare';
 import RandomSuggestion from '../../components/ResultPageComp/RandomSuggestion';
 import useFoodRecommendation from '../../hooks/useFoodRecommendation';
@@ -19,7 +19,6 @@ import {
   YoutubeVideo,
   YoutubeVideoList
 } from '../../styles/ResultPageStyles/ResultPageStyle';
-import { PositiveButton } from '../../styles/CommonStyles/ButtonStyle';
 
 const ResultPage = () => {
   const { food, error, handleRetry, isLoading } = useFoodRecommendation();
@@ -35,8 +34,8 @@ const ResultPage = () => {
       const result = await viewVideos(keyword);
       setVideos(result);
       setSelectedVideo(null);
-    } catch (error) {
-      console.log(error.message);
+    } catch (isError) {
+      setError(error);
     }
   };
 
