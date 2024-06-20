@@ -75,7 +75,7 @@ const KakaoMap = ({ foodName }) => {
 
               const options = {
                 location: new kakao.maps.LatLng(lat, lng),
-                radius: 500 // 반경 500미터
+                radius: 2000 // 반경 500미터
               };
 
               ps.keywordSearch(foodName, callback, options);
