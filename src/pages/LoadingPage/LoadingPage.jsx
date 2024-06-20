@@ -3,17 +3,46 @@ import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import RobotImg from '../../assets/Robot.jpeg';
 
+const CenteredContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 50%;
+  width: 50%;
+  margin: auto;
+  position: relative;
+`;
+
+const BackgroundImage = styled.div`
+  width: 100%;
+  height: 100%;
+  background-image: url(${RobotImg});
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 0;
+`;
+
+const Overlay = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1;
+`;
+
 const LoadingContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: auto;
-  width: 100%;
-  height: 100vh;
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
   font-size: 5rem;
+  z-index: 2;
   span {
     animation: animate 3s linear infinite;
     @keyframes animate {
@@ -52,42 +81,30 @@ const LoadingContainer = styled.div`
   }
 `;
 
-const BackgroundImage = styled.img`
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 0;
-`;
-
 const StDiv = styled.div`
-  height: 100%;
-  width: 100%;
-  position: fixed;
-  top: 0;
-  left: 0;
-  background-color: rgb(0, 0, 0, 0.5);
+  width: 800px;
+  height: 800px;
 `;
 
 const Loading = () => {
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const redirectToResult = () => {
-      navigate('/Result');
-    };
+  // useEffect(() => {
+  //   const redirectToResult = () => {
+  //     navigate('/Result');
+  //   };
 
-    const timeoutId = setTimeout(redirectToResult, 3000);
+  //   const timeoutId = setTimeout(redirectToResult, 3000);
 
-    return () => clearTimeout(timeoutId);
-  }, []);
+  //   return () => clearTimeout(timeoutId);
+  // }, [navigate]);
 
   return (
-    <>
-      <BackgroundImage src={RobotImg} alt="Loading Background" />
-      <StDiv></StDiv>
+    <CenteredContainer>
+      <StDiv>
+        <BackgroundImage />
+      </StDiv>
+      <Overlay />
       <LoadingContainer>
         <span>메</span>
         <span>뉴</span>
@@ -96,7 +113,7 @@ const Loading = () => {
         <span>중</span>
         <span>...</span>
       </LoadingContainer>
-    </>
+    </CenteredContainer>
   );
 };
 
