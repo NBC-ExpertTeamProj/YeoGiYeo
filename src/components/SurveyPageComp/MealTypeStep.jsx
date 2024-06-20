@@ -1,7 +1,12 @@
-import styled from 'styled-components';
 import Swal from 'sweetalert2';
-
-import { ItemContainer, StCardDiv, StContainer, StH2 } from '../../styles/CommonStyles/surveyStyle';
+import {
+  ItemContainer,
+  StCardDiv,
+  StContainer,
+  StH2,
+  StInputContainer
+} from '../../styles/SurveyPageStyles/surveyStyle';
+import { StartButton } from '../../styles/MainPageStyles/MainPageStyle';
 
 const MealTypeStep = ({ nextStep, setMealType, mealType }) => {
   const handleChange = (meal) => {
@@ -39,34 +44,3 @@ const MealTypeStep = ({ nextStep, setMealType, mealType }) => {
 };
 
 export default MealTypeStep;
-
-export const StInputContainer = styled.div`
-  box-sizing: border-box;
-  display: flex;
-  width: 100%;
-  height: 100%;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  gap: 60px;
-`;
-export const StartButton = styled.button`
-  box-sizing: border-box;
-  width: 200px;
-  height: 45px !important;
-  border-radius: 10px;
-  font-size: 18px;
-  background-color: #007bff;
-  color: #fff;
-  border: none;
-  cursor: pointer;
-  transition: background-color 0.3s, transform 0.3s;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-  &:hover {
-    background-color: #0056b3;
-    transform: translateY(-3px);
-  }
-  &:active {
-    transform: translateY(-1px);
-  }
-`;

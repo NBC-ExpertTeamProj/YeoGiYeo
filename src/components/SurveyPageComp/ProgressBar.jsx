@@ -1,5 +1,4 @@
-import React from 'react';
-import { ProgressBarContainer, StepCircle } from '../../styles/CommonStyles/surveyStyle';
+import { ProgressBarContainer, StepCircle } from '../../styles/SurveyPageStyles/surveyStyle';
 
 function ProgressBar({ step }) {
   return (

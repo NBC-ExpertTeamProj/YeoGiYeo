@@ -2,9 +2,16 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import { supabaseApi } from '../../api/supabaseApi/supabase.api';
-import { ItemContainer, StButtonDiv, StCardDiv, StContainer, StH2 } from '../../styles/CommonStyles/surveyStyle';
+import {
+  ItemContainer,
+  StButtonDiv,
+  StCardDiv,
+  StContainer,
+  StH2,
+  StInputContainer
+} from '../../styles/SurveyPageStyles/surveyStyle';
 import useStore from '../../zustand/store';
-import { StInputContainer, StartButton } from './MealTypeStep';
+import { StartButton } from '../../styles/MainPageStyles/MainPageStyle';
 
 const PeopleStep = ({ prevStep, setPeople, people, cuisineType, mealType }) => {
   const queryClient = useQueryClient();
@@ -33,7 +40,7 @@ const PeopleStep = ({ prevStep, setPeople, people, cuisineType, mealType }) => {
       mutate();
       navigate('/loading');
     } else {
-      Swal.fire({ text: '누구와 함께 식사하실지 선택해주세요!', confirmButtonColor: '#3085d6' });
+      Swal.fire({ text: '누구와 함께 식사하실지 선택해주세요!', confirmButtonColor: '#d6eaf8' });
     }
   };
 

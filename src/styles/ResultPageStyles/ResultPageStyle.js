@@ -73,6 +73,11 @@ export const ShareButton = styled.button`
   cursor: pointer;
   margin-right: 10px;
   margin: ${({ theme }) => theme.spacing.small};
+  transition: transform 0.3s;
+
+  &:hover {
+    transform: translateY(-3px);
+  }
 `;
 
 export const ShareImage = styled.img`
@@ -103,12 +108,13 @@ export const SuggestionButton = styled.button`
   width: 600px;
 
   cursor: pointer;
-  transition: background-color 0.3s, color 0.3s;
+  transition: background-color 0.3s, transform 0.3s;
   font-family: ${({ theme }) => theme.fonts.bold};
   border: none;
 
   &:hover {
-    background-color: ${({ theme }) => theme.colors.darkBlueFocus}; /* Change on hover */
+    background-color: ${({ theme }) => theme.colors.darkBlueFocus};
+    transform: translateY(-3px);
   }
 `;
 
@@ -122,11 +128,12 @@ export const RetryButton = styled.button`
   width: 600px;
 
   cursor: pointer;
-  transition: background-color 0.3s, color 0.3s;
+  transition: background-color 0.3s, transform 0.3s;
   font-family: ${({ theme }) => theme.fonts.bold};
   border: none;
 
   &:hover {
     background-color: ${({ theme }) => theme.colors.error};
+    transform: translateY(-3px);
   }
 `;

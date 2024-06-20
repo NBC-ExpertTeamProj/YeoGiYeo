@@ -25,6 +25,7 @@ export const StSurveyContainer = styled.div`
   border: 1px solid rgba(0, 0, 0, 0.1);
   box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.1);
   font-size: 20px;
+  font-family: ${({ theme }) => theme.fonts.regular};
   max-width: 800px;
   min-width: 600px;
   min-height: 650px;
@@ -42,6 +43,7 @@ export const StContainer = styled.div`
   width: 100%;
   height: 100%;
   box-sizing: border-box;
+  font-family: ${({ theme }) => theme.fonts.regular};
 `;
 
 export const StH2 = styled.h2`
@@ -105,6 +107,7 @@ export const StCardDiv = styled.div`
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
   display: flex;
   justify-content: center;
+  font-family: ${({ theme }) => theme.fonts.regular};
   align-items: center;
   &:hover {
     background-color: #e9e9e9;
@@ -148,4 +151,43 @@ export const StepCircle = styled.div`
   justify-content: center;
   color: white;
   font-weight: bold;
+`;
+
+export const StItemContainer = styled(ItemContainer)`
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 20px;
+  font-family: ${({ theme }) => theme.fonts.regular};
+`;
+
+export const StInputContainer = styled.div`
+  box-sizing: border-box;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  gap: 60px;
+`;
+
+export const StartButton = styled.button`
+  box-sizing: border-box;
+  width: 200px;
+  height: 45px !important;
+  border-radius: 10px;
+  font-size: 18px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  &:hover {
+    background-color: #0056b3;
+    transform: translateY(-3px);
+  }
+  &:active {
+    transform: translateY(-1px);
+  }
 `;
