@@ -1,43 +1,102 @@
-// import styled from 'styled-components';
+import styled from 'styled-components';
 
-// const YoutubeCard = styled.div`
-//   margin-top: 20px;
-//   padding: 20px;
-// `;
-// const YoutubeVideoList = styled.div`
-//   display: grid;
-//   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-//   gap: 10px;
-//   height: 100%;
-// `;
+export const YoutubeSection = styled.div`
+  margin-top: ${({ theme }) => theme.spacing.medium};
+  padding: ${({ theme }) => theme.spacing.medium};
+  overflow: hidden;
+  justify-content: center;
+  width: 1050px;
+  margin: 0 auto;
+  font-family: ${({ theme }) => theme.fonts.bold};
+  overflow-y: auto;
+`;
 
-// const YoutubeVideo = styled.div`
-//   display: flex;
-//   flex-direction: column;
-//   justify-content: space-between;
-//   border: 1px solid #ccc;
-//   padding: 15px;
-//   cursor: pointer;
-//   border-radius: 10px;
-//   margin: 0 auto;
-//   width: 220px;
-//   margin-left: 120px;
-// `;
+export const YoutubeContainer = styled.div`
+  position: relative;
+  display: flex;
+  align-items: center;
+  position: relative;
+`;
+export const YoutubeVideoList = styled.div`
+  display: flex;
+  width: 100%;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+  gap: ${({ theme }) => theme.spacing.small};
+  height: 100%;
+  margin: 0 40px;
+`;
 
-// const YoutubeTitle = styled.h3`
-//   font-size: 15px;
-//   white-space: nowrap;
-//   overflow: hidden;
-//   text-overflow: ellipsis;
-// `;
+export const YoutubeVideo = styled.div`
+  width: 220px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border: 1px solid ${({ theme }) => theme.colors.gray};
+  padding: ${({ theme }) => theme.spacing.small};
+  cursor: pointer;
+  border-radius: ${({ theme }) => theme.borderRadius};
+`;
 
-// const YoutubeThumbnail = styled.img`
-//   margin-top: 10px;
-//   width: 100%;
-// `;
-// const WatchVideo = styled.div`
-//   margin-top: 20px;
-// `;
-// const VideoTitle = styled.h2`
-//   margin-bottom: 10px;
-// `;
+export const YoutubeTitle = styled.h3`
+  font-size: ${({ theme }) => theme.fontsize.small};
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+`;
+
+export const YoutubeThumbnail = styled.img`
+  margin-top: ${({ theme }) => theme.spacing.small};
+  width: 198px;
+  height: 111px;
+`;
+
+export const WatchVideo = styled.div`
+  margin-top: ${({ theme }) => theme.spacing.medium};
+`;
+
+export const ScrollButton = styled.button`
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  color: black;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  z-index: 10;
+  background: none;
+  &.left {
+    left: -20px;
+  }
+
+  &.right {
+    right: -20px;
+  }
+`;
+export const ArrowLeft = styled.text`
+  display: inline-block;
+  width: 50px;
+  height: 50px;
+  border-left: 5px solid ${({ theme }) => theme.colors.darkBlue};
+  border-bottom: 5px solid ${({ theme }) => theme.colors.darkBlue};
+  transform: rotate(45deg);
+  transition: background-color 0.3s;
+  &:hover {
+    border-left: 7px solid ${({ theme }) => theme.colors.darkBlueFocus};
+    border-bottom: 7px solid ${({ theme }) => theme.colors.darkBlueFocus};
+  }
+`;
+
+export const ArrowRight = styled.text`
+  display: inline-block;
+  width: 50px;
+  height: 50px;
+  border-left: 5px solid ${({ theme }) => theme.colors.darkBlue};
+  border-bottom: 5px solid ${({ theme }) => theme.colors.darkBlue};
+  transform: rotate(-135deg);
+  transition: background-color 0.3s;
+  &:hover {
+    border-left: 7px solid ${({ theme }) => theme.colors.darkBlueFocus};
+    border-bottom: 7px solid ${({ theme }) => theme.colors.darkBlueFocus};
+  }
+`;
