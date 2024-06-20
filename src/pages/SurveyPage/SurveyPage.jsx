@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import CuisineTypeStep from '../../components/SurveyPageComp/CuisineTypeStep';
 import MealTypeStep from '../../components/SurveyPageComp/MealTypeStep';
 import PeopleStep from '../../components/SurveyPageComp/PeopleStep';
 import ProgressBar from '../../components/SurveyPageComp/ProgressBar';
-import { PageContainer, StSurveyContainer } from '../../styles/CommonStyles/surveyStyle';
+import { PageContainer, StSurveyContainer } from '../../styles/SurveyPageStyles/surveyStyle';
 
 const SurveyPage = () => {
   const [step, setStep] = useState(0);

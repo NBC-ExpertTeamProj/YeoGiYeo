@@ -11,7 +11,7 @@ import {
   YoutubeContainer,
   ArrowLeft,
   ArrowRight
-} from '../../styles/CommonStyles/YoutubeStyle';
+} from '../../styles/ResultPageStyles/YoutubeStyle';
 
 const YoutubePage = ({ keyword }) => {
   const [videos, setVideos] = useState([]);

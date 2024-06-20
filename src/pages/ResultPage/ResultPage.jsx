@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import KakaoMap from '../../components/ResultPageComp/KakaoMap';
 import LinkShare from '../../components/ResultPageComp/LinkShare';
 import RandomSuggestion from '../../components/ResultPageComp/RandomSuggestion';
 import useFoodRecommendation from '../../hooks/useFoodRecommendation';
@@ -11,10 +10,11 @@ import {
   RetryButton,
   ShareContainer
 } from '../../styles/ResultPageStyles/ResultPageStyle';
-import YoutubePage from './YoutubePage';
+import YoutubePage from '../../components/ResultPageComp/YoutubePage';
+import KakaoMap from '../../api/KakaoMapApi/KakaoMap';
 
 const ResultPage = () => {
-  const { food, error, handleRetry, isLoading } = useFoodRecommendation();
+  const { food, error, handleRetry } = useFoodRecommendation();
   const [query, setQuery] = useState('');
 
   useEffect(() => {
@@ -37,7 +37,7 @@ const ResultPage = () => {
         <RetryButton onClick={handleRetry}>다시하기</RetryButton>
       </RandomSuggestionContainer>
       <ShareContainer>
-        <p>Share this page</p>
+        <p>이 페이지를 공유해 보세요!</p>
         <LinkShare url="https://YeoGiYeo.com" text="오늘의 식사 메뉴를 추천받아 보세요!" />
       </ShareContainer>
       {query && <YoutubePage keyword={query} />}

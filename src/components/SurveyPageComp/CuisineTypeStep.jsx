@@ -1,8 +1,13 @@
 import Swal from 'sweetalert2';
-
-import styled from 'styled-components';
-import { ItemContainer, StButtonDiv, StCardDiv, StContainer, StH2 } from '../../styles/CommonStyles/surveyStyle';
-import { StInputContainer, StartButton } from './MealTypeStep';
+import {
+  StButtonDiv,
+  StCardDiv,
+  StContainer,
+  StH2,
+  StInputContainer,
+  StItemContainer
+} from '../../styles/SurveyPageStyles/surveyStyle';
+import { StartButton } from '../../styles/MainPageStyles/MainPageStyle';
 
 const CuisineTypeStep = ({ nextStep, prevStep, setCuisineType, cuisineType }) => {
   const handleChange = (cuisine) => {
@@ -44,8 +49,3 @@ const CuisineTypeStep = ({ nextStep, prevStep, setCuisineType, cuisineType }) =>
 };
 
 export default CuisineTypeStep;
-export const StItemContainer = styled(ItemContainer)`
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-gap: 20px;
-`;
