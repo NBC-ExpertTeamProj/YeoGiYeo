@@ -1,8 +1,7 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import RobotImg from '../../assets/Robot.jpeg';
-import Robot2 from '../../assets/AI.jpeg';
 
 const LoadingContainer = styled.div`
   display: flex;
