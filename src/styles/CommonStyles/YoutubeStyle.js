@@ -77,12 +77,13 @@ export const ArrowLeft = styled.text`
   display: inline-block;
   width: 50px;
   height: 50px;
-  border-left: 10px solid ${({ theme }) => theme.colors.darkBlue};
-  border-bottom: 10px solid ${({ theme }) => theme.colors.darkBlue};
+  border-left: 5px solid ${({ theme }) => theme.colors.darkBlue};
+  border-bottom: 5px solid ${({ theme }) => theme.colors.darkBlue};
   transform: rotate(45deg);
+  transition: background-color 0.3s;
   &:hover {
-    border-left: ${({ theme }) => theme.colors.darkBlueFocus};
-    border-bottom: ${({ theme }) => theme.colors.darkBlueFocus};
+    border-left: 7px solid ${({ theme }) => theme.colors.darkBlueFocus};
+    border-bottom: 7px solid ${({ theme }) => theme.colors.darkBlueFocus};
   }
 `;
 
@@ -90,11 +91,12 @@ export const ArrowRight = styled.text`
   display: inline-block;
   width: 50px;
   height: 50px;
-  border-left: 10px solid ${({ theme }) => theme.colors.darkBlue};
-  border-bottom: 10px solid ${({ theme }) => theme.colors.darkBlue};
+  border-left: 5px solid ${({ theme }) => theme.colors.darkBlue};
+  border-bottom: 5px solid ${({ theme }) => theme.colors.darkBlue};
   transform: rotate(-135deg);
+  transition: background-color 0.3s;
   &:hover {
-    border-left: ${({ theme }) => theme.colors.darkBlueFocus};
-    border-bottom: ${({ theme }) => theme.colors.darkBlueFocus};
+    border-left: 7px solid ${({ theme }) => theme.colors.darkBlueFocus};
+    border-bottom: 7px solid ${({ theme }) => theme.colors.darkBlueFocus};
   }
 `;
