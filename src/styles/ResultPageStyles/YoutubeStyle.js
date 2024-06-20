@@ -28,6 +28,7 @@ export const YoutubeVideoList = styled.div`
 `;
 
 export const YoutubeVideo = styled.div`
+  min-width: 220px;
   width: 220px;
   display: flex;
   flex-direction: column;
