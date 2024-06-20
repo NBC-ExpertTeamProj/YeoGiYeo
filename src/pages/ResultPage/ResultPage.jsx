@@ -1,4 +1,6 @@
 import { useEffect, useState } from 'react';
+import { viewVideos } from '../../api/YoutubeApi/YoutubeApi';
+import KakaoMap from '../../components/ResultPageComp/KakaoMap';
 import { useNavigate } from 'react-router-dom';
 import { COMPANY, CUISINE_TYPE, MEAL_TIME } from '../../api/supabaseApi/food.api';
 import { supabaseApi } from '../../api/supabaseApi/supabase.api';
@@ -7,7 +9,27 @@ import RandomSuggestion from '../../components/ResultPageComp/RandomSuggestion';
 import useStore from '../../zustand/store';
 import YoutubePage from './YoutubePage';
 
+import useFoodRecommendation from '../../hooks/useFoodRecommendation';
+import {
+  FoodImage,
+  MapContainer,
+  RandomSuggestionContainer,
+  ResultContainer,
+  RetryButton,
+  ShareContainer,
+  VideoTitle,
+  WatchVideo,
+  YoutubeCard,
+  YoutubeThumbnail,
+  YoutubeTitle,
+  YoutubeVideo,
+  YoutubeVideoList
+} from '../../styles/ResultPageStyles/ResultPageStyle';
+
 const ResultPage = () => {
+  const { food, error, handleRetry, isLoading } = useFoodRecommendation();
+  const [videos, setVideos] = useState([]);
+  const [selectedVideo, setSelectedVideo] = useState(null);
   const [food, setFood] = useState(null);
   const [error, setError] = useState(null);
   const [query, setQuery] = useState('');
@@ -48,6 +70,20 @@ const ResultPage = () => {
     if (food) setQuery(food.name + '먹방');
   }, [food]);
 
+  const handleSearch = async (keyword) => {
+    try {
+      const result = await viewVideos(keyword);
+      setVideos(result);
+      setSelectedVideo(null);
+    } catch (isError) {
+      setError(error);
+    }
+  };
+
+  const handleVideoSelect = (video) => {
+    setSelectedVideo(video);
+  };
+
   const handleRetry = () => {
     setFood(null);
     setError(null);
@@ -57,25 +93,28 @@ const ResultPage = () => {
 
   return (
     <>
-      <div>
-        <h2>메뉴 추천 결과</h2>
-      </div>
-      <div>
-        <h3>설문 조사 결과 추천 메뉴는...</h3>
+      <ResultContainer>
+        <h1>메뉴 추천 결과</h1>
+      </ResultContainer>
+      <ResultContainer>
+        <p>설문 조사 결과 추천 메뉴는...</p>
         {error && <p>Error: {error}</p>}
-        {food ? <p>{food.name}</p> : <p>추천할 메뉴가 없습니다.</p>}
-        {food && <img src={food.image_url} alt={food.name} />}
-        <button onClick={handleRetry}>다시하기</button>
-      </div>
-      <div>
-        <RandomSuggestion />
-      </div>
-      <div>
-        <h1>Share this page</h1>
-        <LinkShare url="https://YeoGiYeo.com" text="배포할 내용" />
-      </div>
+        {food ? <h1>{food.name}</h1> : <h1>추천할 메뉴가 없습니다.</h1>}
+        {food && <FoodImage src={food.image_url} alt={food.name} />}
+      </ResultContainer>
+      <RandomSuggestionContainer>
+        {food && <RandomSuggestion food={food} />}
+        <RetryButton onClick={handleRetry}>다시하기</RetryButton>
+      </RandomSuggestionContainer>
+      <ShareContainer>
+        <p>Share this page</p>
+        <LinkShare url="https://YeoGiYeo.com" text="오늘의 식사 메뉴를 추천받아 보세요!" />
+      </ShareContainer>
       {query && <YoutubePage keyword={query} />}
-      <div>mapapi</div>
+      <MapContainer>
+        <p>추천 받은 메뉴를 파는 곳</p>
+        {food && <KakaoMap foodName={food.name} />} {/* food.name을 KakaoMap에 전달 */}
+      </MapContainer>
     </>
   );
 };
