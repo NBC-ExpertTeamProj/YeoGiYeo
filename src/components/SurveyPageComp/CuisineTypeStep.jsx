@@ -32,7 +32,8 @@ const CuisineTypeStep = ({ nextStep, prevStep, setCuisineType, cuisineType }) =>
             { ko: '중식', en: 'chinese' },
             { ko: '일식', en: 'japanese' },
             { ko: '양식', en: 'western' },
-            { ko: '아시안', en: 'asia' }
+            { ko: '아시안', en: 'asia' },
+            { ko: 'FoodGPT 추천', en: 'all' }
           ].map((cuisine) => (
             <StCardDiv key={cuisine.en} onClick={() => handleChange(cuisine.en)} $selected={cuisineType === cuisine.en}>
               {cuisine.ko}
