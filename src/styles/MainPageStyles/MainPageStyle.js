@@ -1,5 +1,5 @@
-import Logo from '../../assets/YeoGiYeo.png';
 import styled, { keyframes } from 'styled-components';
+import Logo from '../../assets/YeoGiYeo.png';
 
 const fadeIn = keyframes`
   from {
@@ -80,7 +80,11 @@ export const StTitleName = styled(TitleName)`
   margin-top: 0;
 `;
 export const StSpan = styled.span`
-  font-weight: 800;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 18px;
+  font-weight: 900 !important;
+  color: #3c3c3c;
+  margin-left: 3px;
 `;
 export const StSubtitle = styled(Subtitle)`
   margin-bottom: 10px;
